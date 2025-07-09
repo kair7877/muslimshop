@@ -8,118 +8,74 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #e8f0ea, #f9fbf8);
-      color: #0f3e2c;
+      background: #f7fff4;
+      font-family: sans-serif;
     }
     header {
-      background: linear-gradient(to right, #0f3e2c, #238765);
-      color: #ffffff;
-      text-align: center;
-      padding: 40px 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    header h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
-      letter-spacing: 1px;
-    }
-    header p {
-      font-size: 16px;
-    }
-
-    .menu {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-      padding: 30px;
-    }
-
-    .menu a {
-      display: block;
-      padding: 18px;
-      background: #ffffff;
-      color: #238765;
-      text-align: center;
-      font-weight: bold;
-      font-size: 18px;
-      border-radius: 12px;
-      text-decoration: none;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .menu a:hover {
-      transform: scale(1.02);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      background-color: #f0fdf7;
-    }
-
-    .whatsapp-button {
-      text-align: center;
-      margin: 30px 0;
-    }
-
-    .whatsapp-button a {
-      background: #25D366;
-      color: white;
-      padding: 12px 24px;
-      font-size: 16px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-      transition: background 0.3s ease;
-    }
-
-    .whatsapp-button a:hover {
-      background: #1ea653;
-    }
-
-    footer {
       background: #0f3e2c;
       color: white;
       text-align: center;
       padding: 20px;
-      font-size: 14px;
-      margin-top: 40px;
     }
-
-    @media (min-width: 600px) {
-      .menu {
-        grid-template-columns: repeat(2, 1fr);
-      }
+    .container {
+      padding: 15px;
     }
-
-    @media (min-width: 900px) {
-      .menu {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      header h1 {
-        font-size: 40px;
-      }
+    .category {
+      display: block;
+      background: #ffffff;
+      margin-bottom: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+      color: #0f3e2c;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .category:hover {
+      background: #e4ffe4;
+    }
+    .whatsapp {
+      display: block;
+      background: #25D366;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #555;
+      margin: 20px 0;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>🌙 Muslim Shop — Атырау</h1>
-  <p>Бутик №24 | +7 778 175 42 41</p>
+  <h1>Muslim Shop — Атырау</h1>
+<p>Бутик №24 | +7 778 175 42 41</
 </header>
 
-<div class="menu">
-  <a href="zheinamazy.html">🕌 Жейнамазы</a>
-  <a href="miski.html">🧴 Миски (духи)</a>
-  <a href="nutraxin.html">💊 Витамины Nutraxin</a>
-  <a href="iherb.html">💊 Витамины iHerb</a>
-  <a href="manshealth.html">🧔 Мужское здоровье</a>
-  <a href="collagen.html">🧬 Разные коллагены</a>
-  <a href="nigella.html">🛢️ Разные масла чёрного тмина</a>
-</div>
+<div class="container">
 
-<div class="whatsapp-button">
-  <a href="https://wa.me/77781754241" target="_blank">📲 Написать в WhatsApp</a>
+  <a href="zhaynamaz.html" class="category">🕌 Жейнамазы</a>
+  <a href="miski.html" class="category">🧴 Миски (духи)</a>
+  <a href="nutraxin.html" class="category">💊 Витамины Nutraxin</a>
+  <a href="iherb.html" class="category">🍃 Витамины iHerb</a>
+  <a href="manshealth.html" class="category">🧔 Мужское здоровье</a>
+  <a href="collagen.html" class="category">💅 Разные коллагены</a>
+  <a href="nigella.html" class="category">🛢️ Разные масла чёрного тмина</a>
+  <a href="dagestan.html" class="category">🌿 Дагестанские травяные капсулы</a>
+
+  <a href="https://wa.me/77012345678?text=Здравствуйте!%20Хочу%20заказать%20товары%20из%20Muslim%20Shop" class="whatsapp">
+    📲 Написать в WhatsApp
+  </a>
+
 </div>
 
 <footer>
