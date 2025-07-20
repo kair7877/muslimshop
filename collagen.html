@@ -13,7 +13,13 @@
     h1 {
       color: #0f3e2c;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+    }
+    .views {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 25px;
     }
     .product {
       background: #fff;
@@ -61,6 +67,7 @@
 <body>
 
 <h1>💅 Коллаген и красота</h1>
+<p class="views">👁 Всего просмотров страницы: <span id="page-count">0</span></p>
 
 <div class="product">
   <h2>Swiss Bork Natural — Multi Collagen Powder</h2>
@@ -89,6 +96,14 @@
 <div class="back">
   <a href="index.html">← Вернуться на главную</a>
 </div>
+
+<script>
+  const key = "collagenPageViews";
+  let count = localStorage.getItem(key) || 0;
+  count++;
+  localStorage.setItem(key, count);
+  document.getElementById("page-count").textContent = count;
+</script>
 
 </body>
 </html>
