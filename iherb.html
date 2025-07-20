@@ -13,7 +13,13 @@
     h1 {
       color: #0f3e2c;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+    }
+    .views {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 25px;
     }
     .product {
       background: #fff;
@@ -61,6 +67,7 @@
 <body>
 
 <h1>💊 Витамины iHerb</h1>
+<p class="views">👁 Всего просмотров страницы: <span id="page-count">0</span></p>
 
 <!-- Nature's Bounty Calcium + D3 -->
 <div class="product">
@@ -71,6 +78,7 @@
   <p>Капсуловидные таблетки, покрытые оболочкой. Продукт прошёл лабораторные испытания.</p>
   <a href="https://wa.me/77781754241?text=Хочу%20заказать%20Nature's%20Bounty%20Calcium%20D3" class="whatsapp">📲 Заказать через WhatsApp</a>
 </div>
+
 <!-- 21st Century Zinc Citrate -->
 <div class="product">
   <h2>21st Century Zinc Citrate 50mg</h2>
@@ -79,7 +87,8 @@
   <p>Антиоксидантная защита. Подходит для ежедневного приёма.</p>
   <a href="https://wa.me/77781754241?text=Хочу%20заказать%20Zinc%20Citrate%2050mg" class="whatsapp">📲 Заказать через WhatsApp</a>
 </div>
-  <!-- Natural Factors Calcium Citrate -->
+
+<!-- Natural Factors Calcium Citrate -->
 <div class="product">
   <h2>Natural Factors Calcium Citrate 350 mg</h2>
   <img src="calciumfactors.jpg" alt="Natural Factors Calcium Citrate">
@@ -87,7 +96,16 @@
   <p>Подходит для чувствительного желудка. Без глютена и ГМО.</p>
   <a href="https://wa.me/77781754241?text=Хочу%20заказать%20Calcium%20Citrate%20350mg" class="whatsapp">📲 Заказать через WhatsApp</a>
 </div>
+
 <div class="back"><a href="index.html">← Вернуться на главную</a></div>
+
+<script>
+  const key = "iherbPageViews";
+  let count = localStorage.getItem(key) || 0;
+  count++;
+  localStorage.setItem(key, count);
+  document.getElementById("page-count").textContent = count;
+</script>
 
 </body>
 </html>
