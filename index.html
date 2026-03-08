@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muslim Shop — Атырау | Премиальные исламские товары</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2d5016;
+            --secondary: #c9a961;
+            --accent: #8b4513;
+            --light: #f5f1e8;
+            --dark: #1a1410;
+            --text: #2c2416;
+            --border: #e8dcc8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--light) 0%, #faf8f3 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a3a0a 100%);
+            color: white;
+            padding: 2rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.2);
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🕌";
+            font-size: 2rem;
+        }
+
+        .header-info {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text);
+            opacity: 0.8;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: var(--secondary);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* Categories Grid */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .category-card:nth-child(1) { animation-delay: 0.3s; }
+        .category-card:nth-child(2) { animation-delay: 0.4s; }
+        .category-card:nth-child(3) { animation-delay: 0.5s; }
+        .category-card:nth-child(4) { animation-delay: 0.6s; }
+        .category-card:nth-child(5) { animation-delay: 0.7s; }
+        .category-card:nth-child(6) { animation-delay: 0.8s; }
+        .category-card:nth-child(7) { animation-delay: 0.9s; }
+        .category-card:nth-child(8) { animation-delay: 1s; }
+        .category-card:nth-child(9) { animation-delay: 1.1s; }
+        .category-card:nth-child(10) { animation-delay: 1.2s; }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .category-card:hover::before {
+            left: 100%;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--secondary);
+            box-shadow: 0 20px 40px rgba(45, 80, 22, 0.15);
+            background: linear-gradient(135deg, #ffffff 0%, #faf8f3 100%);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover .category-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .category-desc {
+            font-size: 0.9rem;
+            color: #666;
+            opacity: 0.8;
+        }
+
+        .category-card::after {
+            content: '→';
+            position: absolute;
+            right: 2rem;
+            bottom: 2rem;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover::after {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        /* CTA Button */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a3a0a 100%);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 4rem 0;
+            color: white;
+            box-shadow: 0 15px 40px rgba(45, 80, 22, 0.2);
+            animation: fadeInUp 0.8s ease 1.5s both;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: white;
+            color: #25D366;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border: none;
+            cursor: pointer;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            background: #f0f0f0;
+        }
+
+        .whatsapp-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #2a1f18 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+            opacity: 0.95;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .footer-phone {
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .footer-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+            margin: 1.5rem auto;
+        }
+
+        .footer-text {
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+
+        .footer-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+
+        .feature {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .header-container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .footer-features {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Scroll Animation */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">Muslim Shop</div>
+            <div class="header-info">
+                <div class="info-item">📍 Атырау, Казахстан</div>
+                <div class="info-item">📞 +7 778 175 42 41</div>
+                <div class="info-item">🏪 Бутик №24</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Muslim Shop</h1>
+            <p class="subtitle">Премиальные исламские товары и добавки здоровья</p>
+            <p>Ваш верный партнер в выборе качественных товаров для здоровья и духовного благополучия</p>
+        </section>
+
+        <!-- Categories Grid -->
+        <section class="categories">
+            <a href="jeynamaz.html" class="category-card">
+                <div class="category-icon">🕌</div>
+                <h3 class="category-title">Жейнамазы</h3>
+                <p class="category-desc">Красивые и качественные молитвенные коврики</p>
+            </a>
+
+            <a href="miski.html" class="category-card">
+                <div class="category-icon">🧴</div>
+                <h3 class="category-title">Миски (Духи)</h3>
+                <p class="category-desc">Ароматические масла и духи высочайшего качества</p>
+            </a>
+
+            <a href="nutraxin.html" class="category-card">
+                <div class="category-icon">💊</div>
+                <h3 class="category-title">Витамины Nutraxin</h3>
+                <p class="category-desc">Премиальные витаминные комплексы для здоровья</p>
+            </a>
+
+            <a href="iherb.html" class="category-card">
+                <div class="category-icon">🍃</div>
+                <h3 class="category-title">Витамины iHerb</h3>
+                <p class="category-desc">Натуральные добавки из лучшей американской компании</p>
+            </a>
+
+            <a href="manshealth.html" class="category-card">
+                <div class="category-icon">🧔</div>
+                <h3 class="category-title">Мужское здоровье</h3>
+                <p class="category-desc">Специализированные товары для мужского благополучия</p>
+            </a>
+
+            <a href="collagen.html" class="category-card">
+                <div class="category-icon">💅</div>
+                <h3 class="category-title">Разные коллагены</h3>
+                <p class="category-desc">Коллаген для кожи, суставов и общего здоровья</p>
+            </a>
+
+            <a href="nigella.html" class="category-card">
+                <div class="category-icon">🛢️</div>
+                <h3 class="category-title">Масло черного тмина</h3>
+                <p class="category-desc">Мощное целебное масло для здоровья и иммунитета</p>
+            </a>
+
+            <a href="dagestan.html" class="category-card">
+                <div class="category-icon">🌿</div>
+                <h3 class="category-title">Дагестанские травы</h3>
+                <p class="category-desc">Традиционные травяные капсулы из дагестанских гор</p>
+            </a>
+
+            <a href="weightloss.html" class="category-card">
+                <div class="category-icon">🔥</div>
+                <h3 class="category-title">Для похудения</h3>
+                <p class="category-desc">Натуральные добавки для здорового похудения</p>
+            </a>
+
+            <a href="weightgain.html" class="category-card">
+                <div class="category-icon">🍯</div>
+                <h3 class="category-title">Для набора веса</h3>
+                <p class="category-desc">Питательные добавки для здорового набора массы</p>
+            </a>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2>Готовы начать?</h2>
+            <p>Напишите нам в WhatsApp и мы поможем вам выбрать идеальные товары для вашего здоровья</p>
+            <a href="https://wa.me/77781754241?text=Здравствуйте!%20Хочу%20заказать%20товары%20из%20Muslim%20Shop" 
+               class="whatsapp-btn" target="_blank">
+                💬 Написать в WhatsApp
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-location">
+                <span>Muslim Shop</span>
+                <span>—</span>
+                <span class="footer-phone">+7 778 175 42 41</span>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-features">
+                <div class="feature">✓ Качество гарантировано</div>
+                <div class="feature">✓ Быстрая доставка</div>
+                <div class="feature">✓ Поддержка 24/7</div>
+            </div>
+            <p class="footer-text" style="margin-top: 2rem;">© 2024 Muslim Shop — Атырау | Все права защищены</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add scroll reveal class to elements
+        document.querySelectorAll('.category-card, .cta-section').forEach(el => {
+            el.classList.add('scroll-reveal');
+        });
+
+        // Ripple effect on button click
+        document.querySelectorAll('.whatsapp-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.pointerEvents = 'none';
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+            });
+        });
+    </script>
+</body>
+</html>
