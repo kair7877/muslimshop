@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Жейнамазы | Muslim Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Cormorant+Garamond:ital,wght@0,400;0,500&amp;family=Tenor+Sans&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c9a84c;
+            --gold-light: #e8c96a;
+            --dark: #0a0805;
+            --dark-2: #120e08;
+            --cream: #f5efe0;
+            --text: #e8dfc8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--dark);
+            color: var(--text);
+            font-family: 'Tenor Sans', sans-serif;
+            line-height: 1.6;
+        }
+        header {
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10,8,5,0.95);
+        }
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: var(--gold-light);
+        }
+        .hero {
+            padding: 3rem 1.5rem 2rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: var(--cream);
+            margin-bottom: 0.6rem;
+        }
+        .hero p {
+            color: rgba(232,223,200,0.65);
+        }
+        .section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        .product-card {
+            background: var(--dark-2);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.2rem;
+            border: 1px solid rgba(201,168,76,0.15);
+        }
+        .product-card img {
+            width: 100%;
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .product-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.15rem;
+            color: var(--cream);
+            margin-bottom: 0.6rem;
+        }
+        .product-card p {
+            font-size: 0.95rem;
+            color: rgba(232,223,200,0.7);
+            margin-bottom: 1rem;
+        }
+        .wa-btn {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--dark);
+            padding: 0.8rem 1.6rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .back {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .back a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Muslim Shop</div>
+    <a href="index-new.html" style="color: var(--gold); text-decoration: none;">← На главную</a>
+</header>
+
+<section class="hero">
+    <h1>Жейнамазы</h1>
+    <p>Красивые молитвенные коврики высшего качества</p>
+</section>
+
+<section class="section">
+
+    <div class="product-card">
+        <img src="jeynamaz1.jpg" alt="Жейнамаз 1">
+        <h3>Жейнамаз премиум</h3>
+        <p>Высококачественный молитвенный коврик из мягкого материала. Удобный, компактный, с красивым дизайном.</p>
+        <a href="https://wa.me/77781754241?text=Хочу%20заказать%20Жейнамаз%20премиум" class="wa-btn" target="_blank">💬 Заказать в WhatsApp</a>
+    </div>
+
+    <div class="product-card">
+        <img src="jeynamaz2.jpg" alt="Жейнамаз 2">
+        <h3>Жейнамаз классический</h3>
+        <p>Традиционный молитвенный коврик. Прочный, удобный, подходит для ежедневного использования.</p>
+        <a href="https://wa.me/77781754241?text=Хочу%20заказать%20Жейнамаз%20классический" class="wa-btn" target="_blank">💬 Заказать в WhatsApp</a>
+    </div>
+
+    <div class="product-card">
+        <img src="jeynamaz3.jpg" alt="Жейнамаз 3">
+        <h3>Жейнамаз детский</h3>
+        <p>Компактный молитвенный коврик для детей. Мягкий, яркий дизайн, удобный размер.</p>
+        <a href="https://wa.me/77781754241?text=Хочу%20заказать%20Жейнамаз%20детский" class="wa-btn" target="_blank">💬 Заказать в WhatsApp</a>
+    </div>
+
+</section>
+
+<div class="back">
+    <a href="index-new.html">← Вернуться на главную</a>
+</div>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a05cdecdfd728989',t:'MTc4MDQ3MDU0NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
