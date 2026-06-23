@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мужское здоровье | Muslim Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Tenor+Sans&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c9a84c; --gold-light: #e8c96a; --dark: #0a0805;
+            --dark-2: #120e08; --cream: #f5efe0; --text: #e8dfc8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--dark); color: var(--text); font-family: 'Tenor Sans', sans-serif; line-height: 1.6; overflow-x: hidden; }
+        header {
+            padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(10,8,5,0.95); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(201,168,76,0.1);
+        }
+        .logo { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold-light); letter-spacing: 2px; text-decoration: none; }
+        .hero { padding: 3rem 1.5rem 1rem; text-align: center; }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--cream); letter-spacing: 2px; }
+        .section { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+
+        /* КАРТОЧКА ТОВАРА */
+        .product-card {
+            background: var(--dark-2); border: 1px solid rgba(201,168,76,0.2);
+            border-radius: 24px; overflow: hidden; margin-bottom: 3.5rem;
+            display: flex; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+        }
+        .carousel-box { position: relative; width: 100%; height: 500px; background: #000; overflow: hidden; }
+        .carousel-box::after {
+            content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(201,168,76,0.05), transparent);
+            transform: skewX(-25deg); animation: shimmer 8s infinite; pointer-events: none;
+        }
+        @keyframes shimmer { 0% { left: -150%; } 20% { left: 150%; } 100% { left: 150%; } }
+        
+        .swipe-hint {
+            position: absolute; bottom: 20px; right: 20px; background: rgba(0, 0, 0, 0.5); color: var(--gold);
+            padding: 8px 15px; border-radius: 50px; font-size: 0.7rem; font-family: 'Cinzel', serif;
+            border: 1px solid var(--gold); backdrop-filter: blur(5px); z-index: 10; animation: breath 2.5s infinite;
+        }
+        @keyframes breath { 0%, 100% { transform: translateX(0); opacity: 0.7; } 50% { transform: translateX(-10px); opacity: 1; } }
+        .swipe-hint.hidden { opacity: 0; display: none; }
+
+        .track { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .track::-webkit-scrollbar { display: none; }
+        .slide { min-width: 100%; height: 100%; scroll-snap-align: start; cursor: zoom-in; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .dots { display: flex; justify-content: center; align-items: center; gap: 8px; padding: 18px 0; background: var(--dark-2); }
+        .dot { width: 7px; height: 7px; background: rgba(201, 168, 76, 0.2); border-radius: 50%; transition: 0.3s; }
+        .dot.active { background: var(--gold); width: 18px; border-radius: 10px; }
+        
+        .info { padding: 10px 20px 30px; text-align: center; background: var(--dark-2); }
+        .info h3 { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--cream); margin-bottom: 10px; }
+        .info p { font-size: 0.9rem; color: rgba(232,223,200,0.6); margin-bottom: 15px; min-height: 40px; }
+        .price { color: var(--gold-light); font-weight: 700; font-size: 1.7rem; margin-bottom: 25px; }
+        
+        .wa-btn {
+            display: block; background: linear-gradient(135deg, var(--gold), #8a6a1e); color: var(--dark); 
+            padding: 18px; border-radius: 12px; text-decoration: none; text-align: center; 
+            font-weight: 800; font-size: 1rem; text-transform: uppercase;
+        }
+
+        /* STORY VIEWER */
+        #story-viewer { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; flex-direction: column; }
+        .story-progress { position: absolute; top: 15px; left: 10px; right: 10px; display: flex; gap: 5px; z-index: 2002; }
+        .story-bar { height: 3px; flex: 1; background: rgba(255,255,255,0.3); border-radius: 2px; overflow: hidden; }
+        .story-fill { height: 100%; width: 0%; background: #fff; transition: width 0.2s; }
+        .close-story { position: absolute; top: 35px; right: 20px; width: 44px; height: 44px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 30px; cursor: pointer; z-index: 2003; }
+        .story-track { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .story-track::-webkit-scrollbar { display: none; }
+        .story-slide { min-width: 100%; height: 100%; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; }
+        .story-slide img { width: 100%; height: 100%; object-fit: contain; }
+        
+        .back { text-align: center; margin: 3rem 0; }
+        .back a { color: var(--gold); text-decoration: none; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">MUSLIM SHOP</a>
+    <a href="index.html" style="color: var(--gold); text-decoration: none;">← Главная</a>
+</header>
+
+<section class="hero"><h1>Мужское здоровье</h1></section>
+
+<section class="section">
+    <!-- 1. THEMRA -->
+    <div class="product-card">
+        <div class="carousel-box"><div class="swipe-hint" id="hint-1">ЛИСТАЙТЕ ➔</div><div class="track" id="track-1">
+            <div class="slide" onclick="openStory(['themra_1.jpg','themra_2.jpg','themra_3.jpg','themra_4.jpg','themra_5.jpg'],0)"><img src="themra_1.jpg"></div>
+            <div class="slide" onclick="openStory(['themra_1.jpg','themra_2.jpg','themra_3.jpg','themra_4.jpg','themra_5.jpg'],1)"><img src="themra_2.jpg"></div>
+            <div class="slide" onclick="openStory(['themra_1.jpg','themra_2.jpg','themra_3.jpg','themra_4.jpg','themra_5.jpg'],2)"><img src="themra_3.jpg"></div>
+            <div class="slide" onclick="openStory(['themra_1.jpg','themra_2.jpg','themra_3.jpg','themra_4.jpg','themra_5.jpg'],3)"><img src="themra_4.jpg"></div>
+            <div class="slide" onclick="openStory(['themra_1.jpg','themra_2.jpg','themra_3.jpg','themra_4.jpg','themra_5.jpg'],4)"><img src="themra_5.jpg"></div>
+        </div></div>
+        <div class="dots" id="dots-1"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="info"><h3>Паста THEMRA</h3><p>Натуральный продукт для энергии и потенции.</p><div class="price">4 000 ₸</div>
+        <a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D1%8D%D0%BF%D0%B8%D0%BC%D0%B5%D0%B4%D0%B8%D1%83%D0%BC%D0%BD%D1%83%D1%8E%20%D0%BF%D0%B0%D1%81%D1%82%D1%83%20THEMRA.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div>
+    </div>
+
+    <!-- 2. TEKE -->
+    <div class="product-card">
+        <div class="carousel-box"><div class="swipe-hint" id="hint-2">ЛИСТАЙТЕ ➔</div><div class="track" id="track-2">
+            <div class="slide" onclick="openStory(['teke_1.jpg','teke_2.jpg','teke_3.jpg','teke_4.jpg','teke_5.jpg'],0)"><img src="teke_1.jpg"></div>
+            <div class="slide" onclick="openStory(['teke_1.jpg','teke_2.jpg','teke_3.jpg','teke_4.jpg','teke_5.jpg'],1)"><img src="teke_2.jpg"></div>
+            <div class="slide" onclick="openStory(['teke_1.jpg','teke_2.jpg','teke_3.jpg','teke_4.jpg','teke_5.jpg'],2)"><img src="teke_2.jpg"></div>
+            <div class="slide" onclick="openStory(['teke_1.jpg','teke_2.jpg','teke_3.jpg','teke_4.jpg','teke_5.jpg'],3)"><img src="teke_4.jpg"></div>
+            <div class="slide" onclick="openStory(['teke_1.jpg','teke_2.jpg','teke_3.jpg','teke_4.jpg','teke_5.jpg'],4)"><img src="teke_5.jpg"></div>
+        </div></div>
+        <div class="dots" id="dots-2"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="info"><h3>Супер Теке — паста</h3><p>Медовая паста с эпимедиумом и мака.</p><div class="price">5 000 ₸</div>
+        <a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%BF%D0%B0%D1%81%D1%82%D1%83%20%D0%A1%D1%83%D0%BF%D0%B5%D1%80%20%D0%A2%D0%B5%D0%BA%D0%B5.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div>
+    </div>
+
+    <!-- 3. SIDRA -->
+    <div class="product-card">
+        <div class="carousel-box"><div class="swipe-hint" id="hint-3">ЛИСТАЙТЕ ➔</div><div class="track" id="track-3">
+            <div class="slide" onclick="openStory(['sidra_1.jpg','sidra_2.jpg','sidra_3.jpg','sidra_4.jpg','sidra_5.jpg'],0)"><img src="sidra_1.jpg"></div>
+            <div class="slide" onclick="openStory(['sidra_1.jpg','sidra_2.jpg','sidra_3.jpg','sidra_4.jpg','sidra_5.jpg'],1)"><img src="sidra_2.jpg"></div>
+            <div class="slide" onclick="openStory(['sidra_1.jpg','sidra_2.jpg','sidra_3.jpg','sidra_4.jpg','sidra_5.jpg'],2)"><img src="sidra_3.jpg"></div>
+            <div class="slide" onclick="openStory(['sidra_1.jpg','sidra_2.jpg','sidra_3.jpg','sidra_4.jpg','sidra_5.jpg'],3)"><img src="sidra_4.jpg"></div>
+            <div class="slide" onclick="openStory(['sidra_1.jpg','sidra_2.jpg','sidra_3.jpg','sidra_4.jpg','sidra_5.jpg'],4)"><img src="sidra_5.jpg"></div>
+        </div></div>
+        <div class="dots" id="dots-3"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="info"><h3>Sidra Maximum Power</h3><p>Премиальная формула с женьшенем.</p><div class="price">8 000 ₸</div>
+        <a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20Sidra%20Maximum%20Power.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div>
+    </div>
+
+    <!-- 4. BIO HONEY -->
+    <div class="product-card">
+        <div class="carousel-box"><div class="swipe-hint" id="hint-4">ЛИСТАЙТЕ ➔</div><div class="track" id="track-4">
+            <div class="slide" onclick="openStory(['biohoney_1.jpg','biohoney_2.jpg','biohoney_3.jpg','biohoney_4.jpg','biohoney_5.jpg'],0)"><img src="biohoney_1.jpg"></div>
+            <div class="slide" onclick="openStory(['biohoney_1.jpg','biohoney_2.jpg','biohoney_3.jpg','biohoney_4.jpg','biohoney_5.jpg'],1)"><img src="biohoney_2.jpg"></div>
+            <div class="slide" onclick="openStory(['biohoney_1.jpg','biohoney_2.jpg','biohoney_3.jpg','biohoney_4.jpg','biohoney_5.jpg'],2)"><img src="biohoney_3.jpg"></div>
+            <div class="slide" onclick="openStory(['biohoney_1.jpg','biohoney_2.jpg','biohoney_3.jpg','biohoney_4.jpg','biohoney_5.jpg'],3)"><img src="biohoney_4.jpg"></div>
+            <div class="slide" onclick="openStory(['biohoney_1.jpg','biohoney_2.jpg','biohoney_3.jpg','biohoney_4.jpg','biohoney_5.jpg'],4)"><img src="biohoney_5.jpg"></div>
+        </div></div>
+        <div class="dots" id="dots-4"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="info"><h3>Men's Bio Honey</h3><p>Мёд с маточным молочком.</p><div class="price">2 500 ₸</div>
+        <a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20Men's%20Bio%20Honey.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div>
+    </div>
+
+    <!-- 5. BIO HERBS -->
+    <div class="product-card">
+        <div class="carousel-box"><div class="swipe-hint" id="hint-5">ЛИСТАЙТЕ ➔</div><div class="track" id="track-5">
+            <div class="slide" onclick="openStory(['bioherbs_1.jpg','bioherbs_2.jpg','bioherbs_3.jpg','bioherbs_4.jpg','bioherbs_5.jpg'],0)"><img src="bioherbs_1.jpg"></div>
+            <div class="slide" onclick="openStory(['bioherbs_1.jpg','bioherbs_2.jpg','bioherbs_3.jpg','bioherbs_4.jpg','bioherbs_5.jpg'],1)"><img src="bioherbs_2.jpg"></div>
+            <div class="slide" onclick="openStory(['bioherbs_1.jpg','bioherbs_2.jpg','bioherbs_3.jpg','bioherbs_4.jpg','bioherbs_5.jpg'],2)"><img src="bioherbs_3.jpg"></div>
+            <div class="slide" onclick="openStory(['bioherbs_1.jpg','bioherbs_2.jpg','bioherbs_3.jpg','bioherbs_4.jpg','bioherbs_5.jpg'],3)"><img src="bioherbs_4.jpg"></div>
+            <div class="slide" onclick="openStory(['bioherbs_1.jpg','bioherbs_2.jpg','bioherbs_3.jpg','bioherbs_4.jpg','bioherbs_5.jpg'],4)"><img src="bioherbs_5.jpg"></div>
+        </div></div>
+        <div class="dots" id="dots-5"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="info"><h3>BIO HERBS Royal Honey</h3><p>Мёд в саше с женьшенем.</p><div class="price">2 500 ₸</div>
+        <a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20BIO%20HERBS%20Royal%20Honey.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div>
+    </div>
+
+    <!-- 6. PILLS -->
+    <div class="product-card">
+        <div class="carousel-box"><div class="swipe-hint" id="hint-6">ЛИСТАЙТЕ ➔</div><div class="track" id="track-6">
+            <div class="slide" onclick="openStory(['pills_1.jpg','pills_2.jpg','pills_3.jpg','pills_4.jpg','pills_5.jpg'],0)"><img src="pills_1.jpg"></div>
+            <div class="slide" onclick="openStory(['pills_1.jpg','pills_2.jpg','pills_3.jpg','pills_4.jpg','pills_5.jpg'],1)"><img src="pills_2.jpg"></div>
+            <div class="slide" onclick="openStory(['pills_1.jpg','pills_2.jpg','pills_3.jpg','pills_4.jpg','pills_5.jpg'],2)"><img src="pills_3.jpg"></div>
+            <div class="slide" onclick="openStory(['pills_1.jpg','pills_2.jpg','pills_3.jpg','pills_4.jpg','pills_5.jpg'],3)"><img src="pills_4.jpg"></div>
+            <div class="slide" onclick="openStory(['pills_1.jpg','pills_2.jpg','pills_3.jpg','pills_4.jpg','pills_5.jpg'],4)"><img src="pills_5.jpg"></div>
+        </div></div>
+        <div class="dots" id="dots-6"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="info"><h3>Пилюли «Мужская сила»</h3><p>Комплекс (женьшень и панты).</p><div class="price">7 000 ₸</div>
+        <a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%9F%D0%B8%D0%BB%D1%8E%D0%BB%D0%B8%20%D0%B4%D0%BB%D1%8F%20%D0%BC%D1%83%D0%B6%D1%81%D0%BA%D0%BE%D0%B9%20%D1%81%D0%B8%D0%BB%D1%8B.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div>
+    </div>
+
+    <!-- 7. MEN SET -->
+    <div class="product-card">
+        <div class="carousel-box"><div class="swipe-hint" id="hint-7">ЛИСТАЙТЕ ➔</div><div class="track" id="track-7">
+            <div class="slide" onclick="openStory(['menset_1.jpg','menset_2.jpg','menset_3.jpg','menset_4.jpg','menset_5.jpg'],0)"><img src="menset_1.jpg"></div>
+            <div class="slide" onclick="openStory(['menset_1.jpg','menset_2.jpg','menset_3.jpg','menset_4.jpg','menset_5.jpg'],1)"><img src="menset_2.jpg"></div>
+            <div class="slide" onclick="openStory(['menset_1.jpg','menset_2.jpg','menset_3.jpg','menset_4.jpg','menset_5.jpg'],2)"><img src="menset_3.jpg"></div>
+            <div class="slide" onclick="openStory(['menset_1.jpg','menset_2.jpg','menset_3.jpg','menset_4.jpg','menset_5.jpg'],3)"><img src="menset_4.jpg"></div>
+            <div class="slide" onclick="openStory(['menset_1.jpg','menset_2.jpg','menset_3.jpg','menset_4.jpg','menset_5.jpg'],4)"><img src="menset_5.jpg"></div>
+        </div></div>
+        <div class="dots" id="dots-7"><div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="info"><h3>Набор для мужской силы</h3><p>Комплекс: Themra + Teke + Honey.</p><div class="price">1 000 - 1 500 ₸</div>
+        <a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%9D%D0%B0%D0%B1%D0%BE%D1%80%20%D0%B4%D0%BB%D1%8F%20%D0%BC%D1%83%D0%B6%D1%81%D0%BA%D0%BE%D0%B9%20%D1%81%D0%B8%D0%BB%D1%8B.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div>
+    </div>
+
+    <!-- ТОВАРЫ 8-18 (В ТОМ ЖЕ СТИЛЕ) -->
+    <div class="product-card"><div class="carousel-box"><div class="track" id="track-8"><div class="slide" onclick="openStory(['bigpenis.jpg'],0)"><img src="bigpenis.jpg"></div></div></div><div class="info"><h3>Big PENIS — стимулятор</h3><div class="price">2 000 ₸</div><a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20Big%20PENIS.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div></div>
+    <div class="product-card"><div class="carousel-box"><div class="track" id="track-9"><div class="slide" onclick="openStory(['gold07.jpg'],0)"><img src="gold07.jpg"></div></div></div><div class="info"><h3>GOLD 07 — Паста</h3><div class="price">5 500 ₸</div><a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20GOLD%2007%20%D0%BF%D0%B0%D1%81%D1%82%D1%83.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div></div>
+    <div class="product-card"><div class="carousel-box"><div class="track" id="track-10"><div class="slide" onclick="openStory(['1000020030.png'],0)"><img src="1000020030.png"></div></div></div><div class="info"><h3>Китайские шарики «Золотой Олень»</h3><div class="price">4 000 ₸</div><a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D1%88%D0%B0%D1%80%D0%B8%D0%BA%D0%B8%20%D0%97%D0%BE%D0%BB%D0%BE%D1%82%D0%BE%D0%B9%20%D0%9E%D0%BB%D0%B5%D0%BD%D1%8C.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div></div>
+    <div class="product-card"><div class="carousel-box"><div class="track" id="track-11"><div class="slide" onclick="openStory(['1e11ee26-da26-4970-8a39-9f44e34b46ba-1_all_2207.png'],0)"><img src="1e11ee26-da26-4970-8a39-9f44e34b46ba-1_all_2207.png"></div></div></div><div class="info"><h3>Паста Super Power</h3><div class="price">10 000 ₸</div><a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%BF%D0%B0%D1%81%D1%82%D1%83%20Super%20Power.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div></div>
+    <div class="product-card"><div class="carousel-box"><div class="track" id="track-12"><div class="slide" onclick="openStory(['25527.webp'],0)"><img src="25527.webp"></div></div></div><div class="info"><h3>Maral Gel — мужской гель</h3><div class="price">3 000 ₸</div><a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20Maral%20Gel.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div></div>
+    <div class="product-card"><div class="carousel-box"><div class="track" id="track-13"><div class="slide" onclick="openStory(['26500.jpg'],0)"><img src="26500.jpg"></div></div></div><div class="info"><h3>«Мужская сила» Arabiyan Med</h3><div class="price">6 000 ₸</div><a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%90%D1%80%D0%B0%D0%B1%D0%B8%D1%8F%D0%BD%20%D0%9C%D0%B5%D0%B4%20%D0%9C%D1%83%D0%B6%D1%81%D0%BA%D0%B0%D1%8F%20%D1%81%D0%B8%D0%BB%D0%B0.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div></div>
+    <div class="product-card"><div class="carousel-box"><div class="track" id="track-14"><div class="slide" onclick="openStory(['26512.jpg'],0)"><img src="26512.jpg"></div></div></div><div class="info"><h3>Fraink Cream — крем для мужчин</h3><div class="price">2 500 ₸</div><a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20Fraink%20Cream.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div></div>
+    <div class="product-card"><div class="carousel-box"><div class="track" id="track-15"><div class="slide" onclick="openStory(['26537.webp'],0)"><img src="26537.webp"></div></div></div><div class="info"><h3>Сокровище для почек</h3><div class="price">4 000 ₸</div><a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D0%A1%D0%BE%D0%BA%D1%80%D0%BE%D0%B2%D0%B8%D1%89%D0%B5%20%D0%B4%D0%BB%D1%8F%20%D0%BF%D0%BE%D1%87%D0%B5%D0%BA.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div></div>
+    <div class="product-card"><div class="carousel-box"><div class="track" id="track-16"><div class="slide" onclick="openStory(['26556.jpg'],0)"><img src="26556.jpg"></div></div></div><div class="info"><h3>Africa Black Ant King</h3><div class="price">4 000 ₸</div><a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20Africa%20Black%20Ant%20King.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div></div>
+    <div class="product-card"><div class="carousel-box"><div class="track" id="track-17"><div class="slide" onclick="openStory(['26567.jpg'],0)"><img src="26567.jpg"></div></div></div><div class="info"><h3>Sealex Forte</h3><div class="price">4 000 ₸</div><a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20Sealex%20Forte.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div></div>
+    <div class="product-card"><div class="carousel-box"><div class="track" id="track-18"><div class="slide" onclick="openStory(['26585.jpg'],0)"><img src="26585.jpg"></div></div></div><div class="info"><h3>Снайпер — стимулятор</h3><div class="price">4 000 ₸</div><a href="https://wa.me/77781754241?text=%D0%90%D1%81%D1%81%D0%B0%D0%BB%D1%8F%D0%BC%D1%83%20%D0%B0%D0%BB%D0%B5%D0%B9%D0%BA%D1%83%D0%BC!%20%D0%AF%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0%D1%82%D1%8C%20%D1%81%D1%82%D0%B8%D0%BC%D1%83%D0%BB%D1%8F%D1%82%D0%BE%D1%80%20%D0%A1%D0%BD%D0%B0%D0%B9%D0%BF%D0%B5%D1%80.%20%D0%95%D1%81%D1%82%D1%8C%20%D0%BB%D0%B8%20%D0%B2%20%D0%BD%D0%B0%D0%BB%D0%B8%D1%87%D0%B8%D0%B8%3F" class="wa-btn">ЗАКАЗАТЬ</a></div></div>
+</section>
+
+<div class="back"><a href="index.html">← ВЕРНУТЬСЯ НА ГЛАВНУЮ</a></div>
+
+<div id="story-viewer">
+    <div class="story-progress" id="story-progress"></div>
+    <div class="close-story" onclick="closeStory()">&times;</div>
+    <div class="story-track" id="story-track"></div>
+</div>
+
+<script>
+    function setupCarousel(trackId, dotsId, hintId) {
+        const track = document.getElementById(trackId);
+        const dots = document.querySelectorAll(`#${dotsId} .dot`);
+        const hint = document.getElementById(hintId);
+        if(!track) return;
+        setTimeout(() => { track.scrollTo({ left: 30, behavior: 'smooth' }); setTimeout(() => track.scrollTo({ left: 0, behavior: 'smooth' }), 500); }, 1500);
+        track.addEventListener('scroll', () => {
+            const index = Math.round(track.scrollLeft / track.offsetWidth);
+            if(dots.length > 0) dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+            if (track.scrollLeft > 20 && hint) hint.classList.add('hidden');
+        });
+    }
+
+    // Настройка каруселей для всех 18 товаров
+    for(let i=1; i<=18; i++) setupCarousel(`track-${i}`, `dots-${i}`, `hint-${i}`);
+
+    const viewer = document.getElementById('story-viewer');
+    const storyTrack = document.getElementById('story-track');
+    const progressContainer = document.getElementById('story-progress');
+
+    function openStory(images, startIndex) {
+        storyTrack.innerHTML = ''; progressContainer.innerHTML = '';
+        images.forEach((src, i) => {
+            const slide = document.createElement('div'); slide.className = 'story-slide';
+            slide.innerHTML = `<img src="${src}">`; storyTrack.appendChild(slide);
+            const bar = document.createElement('div'); bar.className = 'story-bar';
+            bar.innerHTML = `<div class="story-fill"></div>`; progressContainer.appendChild(bar);
+        });
+        viewer.style.display = 'flex'; document.body.style.overflow = 'hidden';
+        setTimeout(() => { storyTrack.scrollLeft = storyTrack.offsetWidth * startIndex; updateStoryUI(); }, 50);
+    }
+    function updateStoryUI() {
+        const index = Math.round(storyTrack.scrollLeft / storyTrack.offsetWidth);
+        const fills = document.querySelectorAll('.story-fill');
+        fills.forEach((fill, i) => {
+            fill.style.width = i <= index ? '100%' : '0%';
+            fill.style.opacity = i === index ? '1' : (i < index ? '0.6' : '0.3');
+        });
+    }
+    storyTrack.addEventListener('scroll', updateStoryUI);
+    function closeStory() { viewer.style.display = 'none'; document.body.style.overflow = 'auto'; }
+</script>
+</body>
+</html>
