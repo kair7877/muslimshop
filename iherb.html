@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Витамины iHerb | Muslim Shop Luxury</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c9a84c; --gold-light: #e8c96a; --dark: #050504;
+            --dark-2: #0e0d0a; --cream: #f0e8d5; --glass: rgba(10, 8, 5, 0.92);
+        }
+
+        /* ТЕХНИЧЕСКИЙ ФИКС СКРОЛЛА */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        html, body { background: var(--dark); color: var(--cream); font-family: 'Cormorant Garamond', serif; overflow-x: hidden; width: 100%; -webkit-overflow-scrolling: touch; }
+        body { padding-bottom: 120px; }
+        
+        /* МЯГКИЙ ЗОЛОТОЙ ФОН */
+        body::before {
+            content: ""; position: fixed; inset: 0; z-index: -1;
+            background: radial-gradient(circle at 50% 30%, #1a150c 0%, var(--dark) 70%);
+            pointer-events: none;
+        }
+
+        header {
+            padding: 20px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(5,5,5,0.95); position: sticky; top: 0; z-index: 100;
+            border-bottom: 1px solid rgba(201,168,76,0.12); backdrop-filter: blur(10px);
+        }
+        .logo-small { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold-light); letter-spacing: 3px; text-decoration: none; }
+        .back-btn { color: var(--gold); text-decoration: none; font-size: 0.75rem; font-family: 'Cinzel', serif; letter-spacing: 2px; }
+
+        .hero { padding: 3rem 1.5rem 1rem; text-align: center; }
+        .hero h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--gold); letter-spacing: 4px; }
+
+        .section { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+
+        /* КАРТОЧКА ТОВАРА */
+        .product-card {
+            background: var(--dark-2); border: 1px solid rgba(201,168,76,0.2);
+            border-radius: 30px; overflow: hidden; margin-bottom: 3.5rem;
+            display: flex; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            touch-action: pan-y;
+        }
+
+        .carousel-box { 
+            position: relative; width: 100%; height: 500px; background: #000; overflow: hidden;
+            touch-action: pan-y;
+        }
+        
+        .carousel-box::after {
+            content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(201,168,76,0.05), transparent);
+            transform: skewX(-25deg); animation: shimmer 8s infinite; pointer-events: none;
+        }
+        @keyframes shimmer { 0% { left: -150%; } 20% { left: 150%; } 100% { left: 150%; } }
+
+        .track { 
+            display: flex; width: 100%; height: 100%; overflow-x: auto; 
+            scroll-snap-type: x mandatory; scrollbar-width: none; touch-action: auto; 
+        }
+        .track::-webkit-scrollbar { display: none; }
+        
+        .slide { min-width: 100%; height: 100%; scroll-snap-align: start; flex-shrink: 0; }
+        
+        /* contain для полной видимости без обрезки */
+        .slide img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none; }
+
+        .dots { display: flex; justify-content: center; gap: 8px; padding: 20px 0; background: var(--dark-2); }
+        .dot { width: 7px; height: 7px; background: rgba(201, 168, 76, 0.2); border-radius: 50%; transition: 0.3s; }
+        .dot.active { background: var(--gold); width: 18px; border-radius: 10px; }
+
+        .info { padding: 10px 25px 35px; text-align: center; }
+        .info h3 { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--cream); margin-bottom: 10px; }
+        .price { color: var(--gold-light); font-weight: 700; font-size: 1.8rem; margin-bottom: 25px; font-family: 'Cinzel', serif; }
+
+        .desc-btn { background: none; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); width: 100%; padding: 12px; border-radius: 15px; font-family: 'Cinzel', serif; font-size: 0.75rem; cursor: pointer; margin-bottom: 15px; }
+        .desc-content { display: none; text-align: left; font-size: 0.95rem; color: rgba(232,223,200,0.7); line-height: 1.6; padding: 15px 5px; border-top: 1px solid rgba(201,168,76,0.1); margin-bottom: 15px; }
+
+        .wa-btn {
+            display: block; background: linear-gradient(135deg, var(--gold), #8a6a1e); color: #000; 
+            padding: 18px; border-radius: 15px; text-decoration: none; text-align: center; 
+            font-weight: 900; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        /* НИЖНЕЕ МЕНЮ (DOCK) */
+        .nav-dock {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px; height: 75px;
+            background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 40px;
+            display: flex; justify-content: space-around; align-items: center;
+            z-index: 4000; box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+        }
+        .nav-link { text-decoration: none; text-align: center; color: var(--cream); opacity: 0.5; transition: 0.4s; }
+        .nav-link.active { opacity: 1; color: var(--gold-light); }
+        .nav-icon { font-size: 1.5rem; display: block; }
+        .nav-link label { font-size: 0.5rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); font-weight: bold; cursor: pointer; }
+
+        /* STORY VIEWER */
+        #story-viewer { display: none; position: fixed; inset: 0; background: #000; z-index: 5000; flex-direction: column; }
+        .story-progress { position: absolute; top: 15px; left: 10px; right: 10px; display: flex; gap: 5px; }
+        .story-bar { height: 3px; flex: 1; background: rgba(255,255,255,0.3); border-radius: 2px; }
+        .story-fill { height: 100%; width: 0%; background: #fff; }
+        .close-story { position: absolute; top: 35px; right: 20px; width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #fff; font-size: 24px; z-index: 5003; }
+        .story-track { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .story-slide { min-width: 100%; height: 100%; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; }
+        .story-slide img { width: 100%; height: 100%; object-fit: contain; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-small">MUSLIM SHOP</a>
+        <a href="index.html" class="back-btn">← НАЗАД</a>
+    </header>
+
+    <section class="hero"><h1>Витамины iHerb</h1></section>
+
+    <section class="section" id="product-list"></section>
+
+    <nav class="nav-dock">
+        <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span><label>Дом</label></a>
+        <a href="hits.html" class="nav-link"><span class="nav-icon">✨</span><label>Хиты</label></a>
+        <a href="tel:+77781754241" class="nav-link"><span class="nav-icon">📞</span><label>Связь</label></a>
+        <a href="https://wa.me/77781754241" class="nav-link"><span class="nav-icon">💬</span><label>Заказ</label></a>
+    </nav>
+
+    <div id="story-viewer">
+        <div class="story-progress" id="story-progress"></div>
+        <div class="close-story" onclick="closeStory()">×</div>
+        <div class="story-track" id="story-track"></div>
+    </div>
+
+    <script>
+    const products = [
+        { 
+            name: "NaturesPlus Hema-Plex", price: "8 000 ₸", prefix: "hema", 
+            desc: "Мощный комплекс для поддержания здоровья крови и уровня железа в организме. <br>• <b>Энергия:</b> Эффективно борется с усталостью и апатией. <br>• <b>Состав:</b> Содержит 85 мг хелатного железа, витамин С, В12 и фолиевую кислоту для максимального усвоения. <br>• <b>Безопасность:</b> Мягкая формула, комфортная для желудка. <br>• Продукт от одного из лучших американских брендов." 
+        },
+        { 
+            name: "Nature's Bounty Calcium + D3", price: "8 000 ₸", prefix: "calciumd3", 
+            desc: "Важнейший комплекс для здоровья костной системы и крепкого иммунитета. <br>• <b>Крепкие кости:</b> Обеспечивает прочность скелета и зубов. <br>• <b>Усвоение:</b> Витамин D3 помогает кальцию правильно всасываться. <br>• <b>Традиции:</b> Nature's Bounty — бренд с 50-летней историей качества. <br>• Рекомендуется для профилактики остеопороза и поддержки организма." 
+        },
+        { 
+            name: "21st Century Zinc Citrate", price: "3 000 ₸", prefix: "zinc", 
+            desc: "Цинк в легкоусвояемой форме цитрата для ежедневной поддержки здоровья. <br>• <b>Иммунитет:</b> Укрепляет защитные силы организма в период простуд. <br>• <b>Кожа:</b> Способствует очищению кожи и быстрому заживлению тканей. <br>• <b>Обмен веществ:</b> Важен для правильной работы эндокринной системы. <br>• Простая и эффективная добавка для всей семьи." 
+        },
+        { 
+            name: "Natural Factors Calcium Citrate", price: "8 000 ₸", prefix: "calccit", 
+            desc: "Высококачественный кальций в форме цитрата от канадского бренда. <br>• <b>Биодоступность:</b> Форма цитрата лучше всего усваивается организмом. <br>• <b>Пищеварение:</b> Можно принимать натощак, так как не раздражает желудок. <br>• <b>Результат:</b> Поддержка плотности костей и работы мышечной ткани. <br>• Без ГМО, искусственных красителей и подсластителей." 
+        }
+    ];
+
+    const container = document.getElementById('product-list');
+    products.forEach((h, idx) => {
+        const images = [1,2,3,4,5].map(i => `${h.prefix}_${i}.jpg`);
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <div class="carousel-box"><div class="track">
+                ${images.map((img, i) => `<div class="slide" onclick='openStory(${JSON.stringify(images)}, ${i})'><img src="${img}" onerror="if(this.dataset.tried)this.parentElement.style.display='none';this.dataset.tried=1;this.src='placeholder.jpg';"></div>`).join('')}
+            </div></div>
+            <div class="dots">${images.map((_, i) => `<div class="dot${i===0?' active':''}"></div>`).join('')}</div>
+            <div class="info">
+                <h3>${h.name}</h3><div class="price">${h.price}</div>
+                <button class="desc-btn">ПОДРОБНЕЕ ▾</button>
+                <div class="desc-content"><p>${h.desc}</p></div>
+                <a href="https://wa.me/77781754241?text=${encodeURIComponent('Ассалямуалейкум! Я хочу заказать витамины iHerb: ' + h.name)}" class="wa-btn">ЗАКАЗАТЬ</a>
+            </div>`;
+        container.appendChild(card);
+        const track = card.querySelector('.track');
+        const dots = card.querySelectorAll('.dot');
+        track.addEventListener('scroll', () => {
+            const i = Math.round(track.scrollLeft / track.offsetWidth);
+            dots.forEach((d, n) => d.classList.toggle('active', n === i));
+        }, { passive: true });
+        const btn = card.querySelector('.desc-btn');
+        const content = card.querySelector('.desc-content');
+        btn.addEventListener('click', () => {
+            const open = content.style.display === 'block';
+            content.style.display = open ? 'none' : 'block';
+            btn.textContent = open ? 'ПОДРОБНЕЕ ▾' : 'СВЕРНУТЬ ▴';
+        });
+    });
+
+    const viewer = document.getElementById('story-viewer');
+    const storyTrack = document.getElementById('story-track');
+    function openStory(images, start) {
+        storyTrack.innerHTML = ''; document.getElementById('story-progress').innerHTML = '';
+        images.forEach((src) => {
+            const slide = document.createElement('div'); slide.className = 'story-slide';
+            slide.innerHTML = `<img src="${src}">`; storyTrack.appendChild(slide);
+            const bar = document.createElement('div'); bar.className = 'story-bar';
+            bar.innerHTML = `<div class="story-fill"></div>`; document.getElementById('story-progress').appendChild(bar);
+        });
+        viewer.style.display = 'flex'; document.body.style.overflow = 'hidden';
+        setTimeout(() => { storyTrack.scrollLeft = storyTrack.offsetWidth * start; updateStoryUI(); }, 50);
+    }
+    function updateStoryUI() {
+        const index = Math.round(storyTrack.scrollLeft / storyTrack.offsetWidth);
+        document.querySelectorAll('.story-fill').forEach((f, i) => { f.style.width = i <= index ? '100%' : '0%'; f.style.opacity = i === index ? '1' : (i < index ? '0.6' : '0.3'); });
+    }
+    storyTrack.addEventListener('scroll', updateStoryUI);
+    function closeStory() { viewer.style.display = 'none'; document.body.style.overflow = ''; }
+    </script>
+</body>
+</html>
