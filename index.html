@@ -10,254 +10,247 @@
         :root {
             --gold: #c9a84c;
             --gold-light: #e8c96a;
-            --gold-dim: rgba(201,168,76,0.12);
             --dark: #050403;
             --dark-2: #0d0b08;
             --cream: #f0e8d5;
             --glass: rgba(8,6,3,0.88);
         }
 
-        /* УБРАНЫ ВСЕ АНИМАЦИИ ПОЯВЛЕНИЯ — ТЕПЕРЬ ВСЁ МГНОВЕННО */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        html {
-            background: var(--dark);
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
+        html { background: var(--dark); scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+        body { color: var(--cream); font-family: 'Cormorant Garamond', serif; overflow-x: hidden; padding-bottom: 130px; background: var(--dark); }
 
-        body {
-            color: var(--cream);
-            font-family: 'Cormorant Garamond', serif;
-            overflow-x: hidden;
-            padding-bottom: 130px;
-            background: var(--dark);
-        }
-
-        /* Статичный фон */
         body::before {
-            content: "";
-            position: fixed; inset: 0; z-index: -1;
-            background-image:
-                radial-gradient(circle at 50% 30%, rgba(201,168,76,0.05) 0%, transparent 70%);
+            content: ""; position: fixed; inset: 0; z-index: -1;
+            background-image: radial-gradient(circle at 50% 30%, rgba(201,168,76,0.05) 0%, transparent 70%);
             pointer-events: none;
         }
 
+        /* ══ ЯЗЫКОВОЙ ПЕРЕКЛЮЧАТЕЛЬ ══ */
+        .lang-switcher {
+            position: fixed; top: 18px; right: 16px; z-index: 9000;
+            display: flex; align-items: center; gap: 3px;
+            background: rgba(10,8,5,0.85);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(201,168,76,0.35);
+            border-radius: 50px; padding: 4px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        .lang-btn {
+            background: none; border: none;
+            color: rgba(240,232,213,0.55); font-family: 'Cinzel', serif;
+            font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px;
+            padding: 8px 16px; border-radius: 50px; cursor: pointer;
+            transition: 0.3s ease; line-height: 1;
+        }
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: #0a0805; box-shadow: 0 2px 10px rgba(201,168,76,0.4);
+        }
+        @media (max-width: 360px) {
+            .lang-switcher { top: 14px; right: 12px; }
+            .lang-btn { padding: 7px 13px; font-size: 0.66rem; }
+        }
+
+        /* Логика отображения языков */
+        .lang-kk { display: none; }
+        body.kz-mode .lang-ru { display: none; }
+        body.kz-mode .lang-kk { display: block; }
+
         /* ══ HEADER ══ */
-        header {
-            padding: 28px 24px 20px;
-            text-align: center;
-        }
-        header::after {
-            content: "";
-            display: block;
-            width: 40px; height: 1px;
-            background: var(--gold);
-            margin: 14px auto 0;
-            opacity: 0.4;
-        }
-        .logo-main {
-            font-family: 'Cinzel', serif;
-            font-size: 1.3rem; letter-spacing: 10px;
-            color: var(--gold-light);
-            font-weight: 600;
-        }
-        .logo-sub {
-            font-size: 0.5rem; letter-spacing: 5px;
-            opacity: 0.35; margin-top: 6px;
-            text-transform: uppercase;
-        }
+        header { padding: 76px 24px 20px; text-align: center; position: relative; }
+        header::after { content: ""; display: block; width: 40px; height: 1px; background: var(--gold); margin: 14px auto 0; opacity: 0.4; }
+        .logo-main { font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 10px; color: var(--gold-light); font-weight: 600; }
+        .logo-sub { font-size: 0.5rem; letter-spacing: 5px; opacity: 0.35; margin-top: 6px; text-transform: uppercase; }
 
         /* ══ STORIES ══ */
-        .stories-bar {
-            display: flex; gap: 18px;
-            padding: 16px 20px 24px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            touch-action: pan-x;
-            overscroll-behavior-x: contain;
-        }
+        .stories-bar { display: flex; gap: 18px; padding: 16px 20px 24px; overflow-x: auto; scrollbar-width: none; touch-action: pan-x; overscroll-behavior-x: contain; }
         .stories-bar::-webkit-scrollbar { display: none; }
-
-        .story-node {
-            display: flex; flex-direction: column;
-            align-items: center; gap: 8px;
-            flex-shrink: 0;
-            text-decoration: none;
-        }
-        .story-ring {
-            width: 66px; height: 66px; border-radius: 50%;
-            background: conic-gradient(var(--gold), #3d2f0e, var(--gold-light), #3d2f0e, var(--gold));
-            padding: 2px;
-            box-shadow: 0 0 18px rgba(201,168,76,0.2);
-        }
-        .story-inner {
-            width: 100%; height: 100%; border-radius: 50%;
-            background: var(--dark-2);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem;
-        }
-        .story-node span {
-            font-size: 0.5rem; letter-spacing: 1.5px;
-            color: rgba(201,168,76,0.7);
-            text-transform: uppercase;
-            text-align: center;
-        }
+        .story-node { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; text-decoration: none; }
+        .story-ring { width: 66px; height: 66px; border-radius: 50%; background: conic-gradient(var(--gold), #3d2f0e, var(--gold-light), #3d2f0e, var(--gold)); padding: 2px; box-shadow: 0 0 18px rgba(201,168,76,0.2); }
+        .story-inner { width: 100%; height: 100%; border-radius: 50%; background: var(--dark-2); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .story-node span { font-size: 0.5rem; letter-spacing: 1.5px; color: rgba(201,168,76,0.7); text-transform: uppercase; text-align: center; }
 
         /* ══ GRID ══ */
-        .magazine {
-            padding: 0 14px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
+        .magazine { padding: 0 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-        .hero-banner {
-            grid-column: span 2;
-            height: 240px;
-            background: linear-gradient(135deg, #1a1200 0%, #0a0800 100%);
-            border: 1px solid rgba(201,168,76,0.3);
-            border-radius: 28px;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            text-decoration: none;
-            position: relative; overflow: hidden;
-        }
-        .hero-badge {
-            background: var(--gold);
-            color: #000; font-family: 'Cinzel', serif;
-            font-size: 0.5rem; font-weight: 900;
-            letter-spacing: 4px; padding: 4px 14px;
-            border-radius: 50px; margin-bottom: 12px;
-        }
-        .hero-title {
-            font-family: 'Cinzel', serif;
-            font-size: 2rem; color: var(--cream);
-            letter-spacing: 3px;
-        }
-        .hero-sub {
-            font-size: 0.6rem; letter-spacing: 4px;
-            color: var(--gold); opacity: 0.8;
-            margin-top: 10px;
-        }
+        .hero-banner { grid-column: span 2; height: 240px; background: linear-gradient(135deg, #1a1200 0%, #0a0800 100%); border: 1px solid rgba(201,168,76,0.3); border-radius: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; position: relative; overflow: hidden; }
+        .hero-badge { background: var(--gold); color: #000; font-family: 'Cinzel', serif; font-size: 0.5rem; font-weight: 900; letter-spacing: 4px; padding: 4px 14px; border-radius: 50px; margin-bottom: 12px; }
+        .hero-title { font-family: 'Cinzel', serif; font-size: 2rem; color: var(--cream); letter-spacing: 3px; text-align: center; }
+        .hero-sub { font-size: 0.6rem; letter-spacing: 4px; color: var(--gold); opacity: 0.8; margin-top: 10px; }
 
-        .luxury-card {
-            background: var(--dark-2);
-            border: 1px solid rgba(201,168,76,0.12);
-            border-radius: 24px;
-            padding: 32px 12px 22px;
-            text-decoration: none; text-align: center;
-            display: flex; flex-direction: column;
-            align-items: center; gap: 14px;
-            transition: border-color 0.2s;
-        }
-        .luxury-card:active {
-            background: #1a1508;
-            border-color: rgba(201,168,76,0.4);
-        }
-
+        .luxury-card { background: var(--dark-2); border: 1px solid rgba(201,168,76,0.12); border-radius: 24px; padding: 32px 12px 22px; text-decoration: none; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+        .luxury-card:active { background: #1a1508; border-color: rgba(201,168,76,0.4); }
         .card-icon { font-size: 2.2rem; display: block; }
-        .card-label {
-            font-family: 'Cinzel', serif;
-            font-size: 0.62rem; color: var(--cream);
-            letter-spacing: 1.5px; text-transform: uppercase;
-            font-weight: 400;
-        }
-
+        .card-label { font-family: 'Cinzel', serif; font-size: 0.62rem; color: var(--cream); letter-spacing: 1.5px; text-transform: uppercase; line-height: 1.4; }
         .card-wide { grid-column: span 2; flex-direction: row; padding: 22px 28px; gap: 20px; justify-content: center; }
 
         /* ══ NAV DOCK ══ */
-        .nav-dock {
-            position: fixed; bottom: 24px;
-            left: 50%; transform: translateX(-50%);
-            width: calc(100% - 40px); max-width: 380px;
-            height: 70px;
-            background: var(--glass);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 36px;
-            display: flex; justify-content: space-around; align-items: center;
-            z-index: 8000;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
-        }
-        .nav-link {
-            text-decoration: none; text-align: center;
-            display: flex; flex-direction: column; align-items: center; gap: 3px;
-        }
+        .nav-dock { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); width: calc(100% - 40px); max-width: 380px; height: 70px; background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 36px; display: flex; justify-content: space-around; align-items: center; z-index: 8000; box-shadow: 0 20px 60px rgba(0,0,0,0.9); }
+        .nav-link { text-decoration: none; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 3px; }
         .nav-icon { font-size: 1.4rem; display: block; }
-        .nav-label {
-            font-size: 0.45rem; letter-spacing: 1.5px;
-            color: var(--gold); text-transform: uppercase; font-weight: bold;
-            font-family: 'Cinzel', serif;
-        }
+        .nav-label { font-size: 0.45rem; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; font-weight: bold; font-family: 'Cinzel', serif; }
         .nav-link.active .nav-icon { filter: drop-shadow(0 0 8px var(--gold)); }
     </style>
 </head>
-<body>
+<body id="mainBody">
+
+<div class="lang-switcher">
+    <button class="lang-btn active" id="btnRu" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn" id="btnKz" onclick="setLang('kz')">KZ</button>
+</div>
 
 <!-- HEADER -->
 <header>
     <div class="logo-main">MUSLIM SHOP</div>
-    <div class="logo-sub">Atyrau · Boutique №24</div>
+    <div class="logo-sub">
+        <span class="lang-ru">Atyrau · Boutique №24</span>
+        <span class="lang-kk">Атырау · №24 Бутик</span>
+    </div>
 </header>
 
 <!-- STORIES -->
 <div class="stories-bar">
-    <a class="story-node" href="hits.html"><div class="story-ring"><div class="story-inner">🔥</div></div><span>Хиты</span></a>
+    <a class="story-node" href="hits.html"><div class="story-ring"><div class="story-inner">🔥</div></div><span class="lang-ru">Хиты</span><span class="lang-kk">Хиттер</span></a>
     <a class="story-node" href="dagestan.html"><div class="story-ring"><div class="story-inner">🌿</div></div><span>Arabiyan</span></a>
-    <a class="story-node" href="manshealth.html"><div class="story-ring"><div class="story-inner">💪</div></div><span>Сила</span></a>
-    <a class="story-node" href="misk.html"><div class="story-ring"><div class="story-inner">🧴</div></div><span>Парфюм</span></a>
+    <a class="story-node" href="manshealth.html"><div class="story-ring"><div class="story-inner">💪</div></div><span class="lang-ru">Сила</span><span class="lang-kk">Күш</span></a>
+    <a class="story-node" href="misk.html"><div class="story-ring"><div class="story-inner">🧴</div></div><span class="lang-ru">Парфюм</span><span class="lang-kk">Әтірлер</span></a>
+    <a class="story-node" href="jeynamaz.html"><div class="story-ring"><div class="story-inner">🕌</div></div><span class="lang-ru">Жейнамазы</span><span class="lang-kk">Жайнамаздар</span></a>
     <a class="story-node" href="iherb.html"><div class="story-ring"><div class="story-inner">🇺🇸</div></div><span>iHerb</span></a>
-    <a class="story-node" href="collagen.html"><div class="story-ring"><div class="story-inner">💅</div></div><span>Коллаген</span></a>
 </div>
 
 <!-- GRID -->
 <main class="magazine">
     <a href="hits.html" class="hero-banner">
-        <div class="hero-badge">BESTSELLERS</div>
-        <div class="hero-title">ТОП-5 ХИТЫ</div>
-        <div class="hero-sub">СМОТРЕТЬ КОЛЛЕКЦИЮ</div>
+        <div class="hero-badge"><span class="lang-ru">BESTSELLERS</span><span class="lang-kk">ХИТТЕР</span></div>
+        <div class="hero-title">
+            <span class="lang-ru">ТОП-5 ХИТЫ</span>
+            <span class="lang-kk">ТОП-5 ХИТТЕР</span>
+        </div>
+        <div class="hero-sub">
+            <span class="lang-ru">СМОТРЕТЬ КОЛЛЕКЦИЮ</span>
+            <span class="lang-kk">ЖИНАҚТЫ КӨРУ</span>
+        </div>
     </a>
 
     <a href="manshealth.html" class="luxury-card">
-        <span class="card-icon">💪</span><span class="card-label">Мужское здоровье</span>
-    </a>
-    <a href="weightloss.html" class="luxury-card">
-        <span class="card-icon">🔥</span><span class="card-label">Похудение</span>
-    </a>
-    <a href="weightgain.html" class="luxury-card">
-        <span class="card-icon">🍯</span><span class="card-label">Набор веса</span>
-    </a>
-    <a href="collagen.html" class="luxury-card">
-        <span class="card-icon">💅</span><span class="card-label">Коллаген</span>
-    </a>
-    <a href="nigella.html" class="luxury-card card-wide">
-        <span class="card-icon">🛢️</span><span class="card-label">Масло чёрного тмина</span>
-    </a>
-    <a href="nutraxin.html" class="luxury-card">
-        <span class="card-icon">💊</span><span class="card-label">Nutraxin</span>
-    </a>
-    <a href="dagestan.html" class="luxury-card">
-        <span class="card-icon">🌿</span><span class="card-label">Дагестанские травы</span>
-    </a>
-    <a href="misk.html" class="luxury-card">
-        <span class="card-icon">🧴</span><span class="card-label">Миски (духи)</span>
+        <span class="card-icon">💪</span>
+        <span class="card-label">
+            <span class="lang-ru">Мужское здоровье</span>
+            <span class="lang-kk">Ерлер денсаулығы</span>
+        </span>
     </a>
     <a href="jeynamaz.html" class="luxury-card">
-        <span class="card-icon">🕌</span><span class="card-label">Жейнамазы</span>
+        <span class="card-icon">🕌</span>
+        <span class="card-label">
+            <span class="lang-ru">Жейнамазы</span>
+            <span class="lang-kk">Жайнамаздар</span>
+        </span>
     </a>
-    <a href="different.html" class="luxury-card card-wide">
-        <span class="card-icon">🛍️</span><span class="card-label">Разные товары</span>
+    <a href="weightloss.html" class="luxury-card">
+        <span class="card-icon">🔥</span>
+        <span class="card-label">
+            <span class="lang-ru">Похудение</span>
+            <span class="lang-kk">Арықтау үшін</span>
+        </span>
+    </a>
+    <a href="weightgain.html" class="luxury-card">
+        <span class="card-icon">🍯</span>
+        <span class="card-label">
+            <span class="lang-ru">Набор веса</span>
+            <span class="lang-kk">Салмақ қосу</span>
+        </span>
+    </a>
+    <a href="collagen.html" class="luxury-card">
+        <span class="card-icon">💅</span>
+        <span class="card-label">
+            <span class="lang-ru">Коллаген</span>
+            <span class="lang-kk">Коллаген</span>
+        </span>
+    </a>
+    <a href="nigella.html" class="luxury-card card-wide">
+        <span class="card-icon">🛢️</span>
+        <span class="card-label">
+            <span class="lang-ru">Масло чёрного тмина</span>
+            <span class="lang-kk">Қара зере майы</span>
+        </span>
+    </a>
+    <a href="nutraxin.html" class="luxury-card">
+        <span class="card-icon">💊</span>
+        <span class="card-label">
+            <span class="lang-ru">Nutraxin Витамины</span>
+            <span class="lang-kk">Nutraxin Витаминдері</span>
+        </span>
+    </a>
+    <a href="dagestan.html" class="luxury-card">
+        <span class="card-icon">🌿</span>
+        <span class="card-label">
+            <span class="lang-ru">Дагестанские травы</span>
+            <span class="lang-kk">Дағыстан шөптері</span>
+        </span>
+    </a>
+    <a href="different.html" class="luxury-card">
+        <span class="card-icon">🛍️</span>
+        <span class="card-label">
+            <span class="lang-ru">Разные товары</span>
+            <span class="lang-kk">Түрлі тауарлар</span>
+        </span>
     </a>
 </main>
 
+<footer style="text-align: center; padding: 50px 20px; font-size: 0.5rem; letter-spacing: 6px; color: rgba(201,168,76,0.2);">
+    EXCLUSIVE ACCESS ONLY
+</footer>
+
 <!-- NAV DOCK -->
 <nav class="nav-dock">
-    <a href="index.html" class="nav-link active"><span class="nav-icon">🏠</span><span class="nav-label">Дом</span></a>
-    <a href="hits.html" class="nav-link"><span class="nav-icon">✨</span><span class="nav-label">Хиты</span></a>
-    <a href="tel:+77781754241" class="nav-link"><span class="nav-icon">📞</span><span class="nav-label">Связь</span></a>
-    <a href="https://wa.me/77781754241" class="nav-link"><span class="nav-icon">💬</span><span class="nav-label">Заказ</span></a>
+    <a href="index.html" class="nav-link active">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label"><span class="lang-ru">Дом</span><span class="lang-kk">Басты</span></span>
+    </a>
+    <a href="hits.html" class="nav-link">
+        <span class="nav-icon">✨</span>
+        <span class="nav-label"><span class="lang-ru">Хиты</span><span class="lang-kk">Хиттер</span></span>
+    </a>
+    <a href="tel:+77781754241" class="nav-link">
+        <span class="nav-icon">📞</span>
+        <span class="nav-label"><span class="lang-ru">Связь</span><span class="lang-kk">Байланыс</span></span>
+    </a>
+    <a href="https://wa.me/77781754241" class="nav-link">
+        <span class="nav-icon">💬</span>
+        <span class="nav-label"><span class="lang-ru">Заказ</span><span class="lang-kk">Тапсырыс</span></span>
+    </a>
 </nav>
+
+<script>
+    // ФУНКЦИЯ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА
+    function setLang(lang) {
+        const body = document.getElementById('mainBody');
+        const btnRu = document.getElementById('btnRu');
+        const btnKz = document.getElementById('btnKz');
+
+        if (lang === 'kz') {
+            body.classList.add('kz-mode');
+            btnKz.classList.add('active');
+            btnRu.classList.remove('active');
+            localStorage.setItem('preferredLang', 'kz');
+        } else {
+            body.classList.remove('kz-mode');
+            btnRu.classList.add('active');
+            btnKz.classList.remove('active');
+            localStorage.setItem('preferredLang', 'ru');
+        }
+    }
+
+    // ПРОВЕРКА ПРИ ЗАГРУЗКЕ
+    window.onload = function() {
+        const savedLang = localStorage.getItem('preferredLang');
+        if (savedLang === 'kz') {
+            setLang('kz');
+        }
+    };
+</script>
 
 </body>
 </html>
