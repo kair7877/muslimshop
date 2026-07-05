@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Коллаген | Muslim Shop Luxury</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #c9a84c; --gold-light: #e8c96a; --dark: #050403;
@@ -33,6 +33,11 @@
         .logo-small { font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 4px; color: var(--gold-light); text-decoration: none; }
         .back-btn { color: var(--gold); text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; font-family: 'Cinzel', serif; }
 
+        /* Логика языков (переключатель есть только на главной, здесь язык применяется автоматически из localStorage) */
+        .lang-kk { display: none; }
+        body.kz-mode .lang-ru { display: none; }
+        body.kz-mode .lang-kk { display: block; }
+
         .hero { padding: 32px 20px 24px; text-align: center; }
         .hero h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--gold); letter-spacing: 4px; font-weight: 400; }
 
@@ -47,13 +52,6 @@
 
         .carousel-box { position: relative; width: 100%; height: 480px; background: #000; overflow: hidden; }
         
-        .carousel-box::after {
-            content: ''; position: absolute; top: 0; left: -150%; width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(201,168,76,0.04), transparent);
-            transform: skewX(-25deg); animation: shimmer 8s infinite; pointer-events: none;
-        }
-        @keyframes shimmer { 0% { left: -150%; } 20% { left: 150%; } 100% { left: 150%; } }
-
         .track {
             display: flex; width: 100%; height: 100%; overflow-x: auto; 
             scroll-snap-type: x mandatory; scrollbar-width: none;
@@ -64,7 +62,7 @@
 
         .slide { min-width: 100%; height: 100%; scroll-snap-align: start; flex-shrink: 0; touch-action: pan-x pan-y; }
         
-        /* КАРТИНКА ЦЕЛИКОМ */
+        /* ИСПРАВЛЕНО: contain для полной видимости ваших постеров */
         .slide img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none; user-select: none; }
 
         .dots { display: flex; justify-content: center; gap: 6px; padding: 12px 0; background: var(--dark-2); }
@@ -95,6 +93,7 @@
         .nav-link { text-decoration: none; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 56px; }
         .nav-icon { font-size: 1.4rem; display: block; }
         .nav-label { font-size: 0.45rem; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; font-family: 'Cinzel', serif; font-weight: bold; }
+        .nav-link.active .nav-icon { filter: drop-shadow(0 0 8px var(--gold)); }
 
         /* ══ STORY VIEWER ══ */
         #story-viewer { display: none; position: fixed; inset: 0; background: #000; z-index: 9000; flex-direction: column; }
@@ -107,11 +106,11 @@
         .story-slide img { width: 100%; height: 100%; object-fit: contain; }
     </style>
 </head>
-<body>
+<body id="mainBody">
 
 <header>
     <a href="index.html" class="logo-small">MUSLIM SHOP</a>
-    <a href="index.html" class="back-btn">← НАЗАД</a>
+    <a href="index.html" class="back-btn"><span class="lang-ru">← НАЗАД</span><span class="lang-kk">← АРТҚА</span></a>
 </header>
 
 <section class="hero"><h1>Коллаген</h1></section>
@@ -119,17 +118,13 @@
 <section class="section" id="product-list"></section>
 
 <nav class="nav-dock">
-    <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span><span class="nav-label">Дом</span></a>
-    <a href="hits.html" class="nav-link"><span class="nav-icon">✨</span><span class="nav-label">Хиты</span></a>
-    <a href="tel:+77781754241" class="nav-link"><span class="nav-icon">📞</span><span class="nav-label">Связь</span></a>
-    <a href="https://wa.me/77781754241" class="nav-link"><span class="nav-icon">💬</span><span class="nav-label">Заказ</span></a>
+    <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span><span class="nav-label"><span class="lang-ru">Дом</span><span class="lang-kk">Басты</span></span></a>
+    <a href="hits.html" class="nav-link"><span class="nav-icon">✨</span><span class="nav-label"><span class="lang-ru">Хиты</span><span class="lang-kk">Хиттер</span></span></a>
+    <a href="tel:+77781754241" class="nav-link"><span class="nav-icon">📞</span><span class="nav-label"><span class="lang-ru">Связь</span><span class="lang-kk">Байланыс</span></span></a>
+    <a href="https://wa.me/77781754241" class="nav-link"><span class="nav-icon">💬</span><span class="nav-label"><span class="lang-ru">Заказ</span><span class="lang-kk">Тапсырыс</span></span></a>
 </nav>
 
-<div id="story-viewer">
-    <div class="story-progress" id="story-progress"></div>
-    <div class="close-story" onclick="closeStory()">×</div>
-    <div class="story-track" id="story-track"></div>
-</div>
+<div id="story-viewer"><div class="story-progress" id="story-progress"></div><div class="close-story" onclick="closeStory()">×</div><div class="story-track" id="story-track"></div></div>
 
 <script>
 const products = [
@@ -137,13 +132,15 @@ const products = [
         name: "Swiss Bork Multi Collagen", 
         price: "12 000 ₸", 
         prefix: "col1", 
-        desc: "Премиальный мультиколлагеновый комплекс из Европы. Содержит 1, 2 и 3 типы коллагена для комплексной поддержки здоровья. Формула усилена гиалуроновой кислотой для увлажнения кожи, берберином и глутатионом для детоксикации и сияния. Укрепляет суставы, связки, делает волосы густыми, а ногти — крепкими." 
+        desc: "Премиальный мультиколлагеновый комплекс. Содержит 1, 2 и 3 типы коллагена для всесторонней поддержки организма. Обогащен гиалуроновой кислотой, берберином и глутатионом. Укрепляет суставы, связки, улучшает эластичность кожи и состояние волос.",
+        desc_kk: "Премиум мультиколлаген кешені. Ағзаны жан-жақты қолдау үшін 1, 2 және 3 типті коллагенді қамтиды. Гиалурон қышқылымен, берберинмен және глутатионмен байытылған. Буындар мен байламдарды нығайтады, теріннің серпімділігін және шаштың жағдайын жақсартады."
     },
     { 
         name: "Nutraxin Beauty Collagen Shot", 
         price: "18 000 ₸", 
         prefix: "col2", 
-        desc: "Инновационный питьевой коллаген премиум-класса. Каждая порция (шот) содержит рекордные 10 000 мг гидролизованного морского коллагена. Благодаря жидкой форме усваивается на 98%. Обогащен биотином, цинком и витамином С. Эффективно борется с признаками старения, разглаживает морщины и восстанавливает эластичность кожи." 
+        desc: "Жидкий морской коллаген в формате шотов. Каждая порция содержит 10 000 мг гидролизованного коллагена. Быстро усваивается, глубоко увлажняет кожу изнутри, способствует разглаживанию морщин и укреплению ногтей. Удобно брать с собой.",
+        desc_kk: "Шот форматындағы сұйық теңіз коллагені. Әр порцияда 10 000 мг гидролизденген коллаген бар. Тез сіңеді, теріні ішінен терең ылғалдандырады, әжімдерді тегістеуге және тырнақтарды нығайтуға көмектеседі. Өзіңмен бірге алып жүруге ыңғайлы."
     }
 ];
 
@@ -160,9 +157,9 @@ products.forEach((p) => {
         <div class="dots">${images.map((_, i) => `<div class="dot${i===0?' active':''}"></div>`).join('')}</div>
         <div class="info">
             <h3>${p.name}</h3><div class="price">${p.price}</div>
-            <button class="desc-btn">ПОДРОБНЕЕ ▾</button>
-            <div class="desc-content"><p>${p.desc}</p></div>
-            <a href="https://wa.me/77781754241?text=${encodeURIComponent('Ассалямуалейкум! Я хочу заказать ' + p.name)}" class="wa-btn">ЗАКАЗАТЬ</a>
+            <button class="desc-btn"><span class="state-more"><span class="lang-ru">ПОДРОБНЕЕ ▾</span><span class="lang-kk">ТОЛЫҒЫРАҚ ▾</span></span><span class="state-less" style="display:none"><span class="lang-ru">СВЕРНУТЬ ▴</span><span class="lang-kk">ЖАБУ ▴</span></span></button>
+            <div class="desc-content"><p class="lang-ru">${p.desc}</p><p class="lang-kk">${p.desc_kk}</p></div>
+            <a href="https://wa.me/77781754241?text=${encodeURIComponent('Ассалямуалейкум! Я хочу заказать ' + p.name)}" class="wa-btn"><span class="lang-ru">ЗАКАЗАТЬ</span><span class="lang-kk">ТАПСЫРЫС БЕРУ</span></a>
         </div>`;
 
     list.appendChild(card);
@@ -174,16 +171,25 @@ products.forEach((p) => {
     }, { passive: true });
     const btn = card.querySelector('.desc-btn');
     const content = card.querySelector('.desc-content');
+    const stateMore = btn.querySelector('.state-more');
+    const stateLess = btn.querySelector('.state-less');
     btn.addEventListener('click', () => {
         const open = content.style.display === 'block';
         content.style.display = open ? 'none' : 'block';
-        btn.textContent = open ? 'ПОДРОБНЕЕ ▾' : 'СВЕРНУТЬ ▴';
+        stateMore.style.display = open ? 'block' : 'none';
+        stateLess.style.display = open ? 'none' : 'block';
     });
 });
 
 const viewer = document.getElementById('story-viewer');
 const storyTrack = document.getElementById('story-track');
 let startY = 0;
+
+window.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('preferredLang') === 'kz') {
+        document.getElementById('mainBody').classList.add('kz-mode');
+    }
+});
 
 function openStory(images, start) {
     storyTrack.innerHTML = ''; document.getElementById('story-progress').innerHTML = '';

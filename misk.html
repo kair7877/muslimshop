@@ -33,6 +33,11 @@
         .logo-small { font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 4px; color: var(--gold-light); text-decoration: none; }
         .back-btn { color: var(--gold); text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; font-family: 'Cinzel', serif; }
 
+        /* Логика языков (переключатель есть только на главной, здесь язык применяется автоматически из localStorage) */
+        .lang-kk { display: none; }
+        body.kz-mode .lang-ru { display: none; }
+        body.kz-mode .lang-kk { display: block; }
+
         .hero { padding: 32px 20px 24px; text-align: center; }
         .hero h1 { font-family: 'Cinzel', serif; font-size: 2.2rem; color: var(--gold); letter-spacing: 4px; font-weight: 400; }
         .hero p { color: var(--gold-light); font-size: 1rem; margin-top: 10px; font-style: italic; }
@@ -90,25 +95,25 @@
         #story-img { width: 100%; height: 100%; object-fit: contain; }
     </style>
 </head>
-<body>
+<body id="mainBody">
 
 <header>
     <a href="index.html" class="logo-small">MUSLIM SHOP</a>
-    <a href="index.html" class="back-btn">← НАЗАД</a>
+    <a href="index.html" class="back-btn"><span class="lang-ru">← НАЗАД</span><span class="lang-kk">← АРТҚА</span></a>
 </header>
 
 <section class="hero">
-    <h1>Миски (духи)</h1>
+    <h1><span class="lang-ru">Миски (духи)</span><span class="lang-kk">Миски (әтірлер)</span></h1>
     <p>1 мг — 500 ₸</p>
 </section>
 
 <section class="section" id="product-list"></section>
 
 <nav class="nav-dock">
-    <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span><span class="nav-label">Дом</span></a>
-    <a href="hits.html" class="nav-link"><span class="nav-icon">✨</span><span class="nav-label">Хиты</span></a>
-    <a href="tel:+77781754241" class="nav-link"><span class="nav-icon">📞</span><span class="nav-label">Связь</span></a>
-    <a href="https://wa.me/77781754241" class="nav-link"><span class="nav-icon">💬</span><span class="nav-label">Заказ</span></a>
+    <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span><span class="nav-label"><span class="lang-ru">Дом</span><span class="lang-kk">Басты</span></span></a>
+    <a href="hits.html" class="nav-link"><span class="nav-icon">✨</span><span class="nav-label"><span class="lang-ru">Хиты</span><span class="lang-kk">Хиттер</span></span></a>
+    <a href="tel:+77781754241" class="nav-link"><span class="nav-icon">📞</span><span class="nav-label"><span class="lang-ru">Связь</span><span class="lang-kk">Байланыс</span></span></a>
+    <a href="https://wa.me/77781754241" class="nav-link"><span class="nav-icon">💬</span><span class="nav-label"><span class="lang-ru">Заказ</span><span class="lang-kk">Тапсырыс</span></span></a>
 </nav>
 
 <div id="story-viewer">
@@ -122,25 +127,29 @@ const products = [
         name: "Ferdaus Cold", 
         img: "miski-1.jpg", 
         price: "500 ₸", 
-        desc: "Свежий, кристально чистый аромат с ледяным оттенком. <br>• <b>Ноты:</b> Перечная мята, прохладный цитрус и легкие зеленые аккорды. <br>• <b>Ощущение:</b> Дарит мгновенное чувство свежести, идеально подходит для жаркого климата Атырау. <br>• <b>Стойкость:</b> Концентрированное масло сохраняет шлейф на весь день." 
+        desc: "Свежий, кристально чистый аромат с ледяным оттенком. <br>• <b>Ноты:</b> Перечная мята, прохладный цитрус и легкие зеленые аккорды. <br>• <b>Ощущение:</b> Дарит мгновенное чувство свежести, идеально подходит для жаркого климата Атырау. <br>• <b>Стойкость:</b> Концентрированное масло сохраняет шлейф на весь день.",
+        desc_kk: "Мұздай реңкі бар балғын, мөлдір хош иіс. <br>• <b>Ноттары:</b> Бұрыш жалбызы, салқын цитрус және жеңіл жасыл аккордтар. <br>• <b>Әсері:</b> Атыраудың ыстық климатына тамаша сәйкес келетін лездік балғындық сезімін сыйлайды. <br>• <b>Тұрақтылығы:</b> Концентрацияланған май иісті күні бойы сақтайды."
     },
     { 
         name: "Sheikh Shuyukh", 
         img: "miski-2.jpg", 
         price: "500 ₸", 
-        desc: "Благородный восточный аромат для ценителей традиций. <br>• <b>Ноты:</b> Уд, сандаловое дерево, амбра и пряные специи. <br>• <b>Ощущение:</b> Глубокий, теплый и статусный аромат, подчеркивающий уверенность. <br>• <b>Применение:</b> Вечерний парфюм с богатым и сложным раскрытием." 
+        desc: "Благородный восточный аромат для ценителей традиций. <br>• <b>Ноты:</b> Уд, сандаловое дерево, амбра и пряные специи. <br>• <b>Ощущение:</b> Глубокий, теплый и статусный аромат, подчеркивающий уверенность. <br>• <b>Применение:</b> Вечерний парфюм с богатым и сложным раскрытием.",
+        desc_kk: "Дәстүрді бағалайтындарға арналған асыл шығыс хош иісі. <br>• <b>Ноттары:</b> Уд, сандал ағашы, амбра және хош иісті дәмдеуіштер. <br>• <b>Әсері:</b> Сенімділікті баса көрсететін терең, жылы және мәртебелі хош иіс. <br>• <b>Қолданылуы:</b> Бай әрі күрделі ашылатын кешкі парфюм."
     },
     { 
         name: "Antonio Banderas", 
         img: "miski-3.jpg", 
         price: "500 ₸", 
-        desc: "Энергичный мужской аромат с современным характером. <br>• <b>Ноты:</b> Мускус, кожа, лесные ягоды и древесные ноты. <br>• <b>Ощущение:</b> Мужественный и притягательный аромат, который звучит свежо и бодро. <br>• <b>Стиль:</b> Универсальный выбор для повседневного использования." 
+        desc: "Энергичный мужской аромат с современным характером. <br>• <b>Ноты:</b> Мускус, кожа, лесные ягоды и древесные ноты. <br>• <b>Ощущение:</b> Мужественный и притягательный аромат, который звучит свежо и бодро. <br>• <b>Стиль:</b> Универсальный выбор для повседневного использования.",
+        desc_kk: "Заманауи мінезі бар қуатты ерлер хош иісі. <br>• <b>Ноттары:</b> Мускус, тері, орман жидектері және ағаш ноттары. <br>• <b>Әсері:</b> Балғын әрі сергек естілетін ерлі және тартымды хош иіс. <br>• <b>Стилі:</b> Күнделікті қолдануға арналған әмбебап таңдау."
     },
     { 
         name: "Louis Vuitton", 
         img: "miski-4.jpg", 
         price: "500 ₸", 
-        desc: "Воплощение элегантности и французского шарма в масляном формате. <br>• <b>Ноты:</b> Нежная ваниль, бергамот, белый жасмин. <br>• <b>Ощущение:</b> Утонченный, «дорогой» и мягкий аромат с легким пудровым шлейфом. <br>• <b>Для кого:</b> Премиальный выбор для тех, кто любит изысканные парфюмерные композиции." 
+        desc: "Воплощение элегантности и французского шарма в масляном формате. <br>• <b>Ноты:</b> Нежная ваниль, бергамот, белый жасмин. <br>• <b>Ощущение:</b> Утонченный, «дорогой» и мягкий аромат с легким пудровым шлейфом. <br>• <b>Для кого:</b> Премиальный выбор для тех, кто любит изысканные парфюмерные композиции.",
+        desc_kk: "Май форматындағы талғампаздық пен француз сүйкімділігінің көрінісі. <br>• <b>Ноттары:</b> Нәзік ваниль, бергамот, ақ жасмин. <br>• <b>Әсері:</b> Жеңіл пудра реңі бар нәзік, «қымбат» және жұмсақ хош иіс. <br>• <b>Кімге арналған:</b> Талғампаз парфюмерлік композицияларды жақсы көретіндерге арналған премиум таңдау."
     }
 ];
 
@@ -155,24 +164,33 @@ products.forEach((p) => {
         </div>
         <div class="info">
             <h3>${p.name}</h3><div class="price">${p.price}</div>
-            <button class="desc-btn">ПОДРОБНЕЕ ▾</button>
-            <div class="desc-content"><p>${p.desc}</p></div>
-            <a href="https://wa.me/77781754241?text=${encodeURIComponent('Ассалямуалейкум! Я хочу заказать духи (миски): ' + p.name)}" class="wa-btn">ЗАКАЗАТЬ В WHATSAPP</a>
+            <button class="desc-btn"><span class="state-more"><span class="lang-ru">ПОДРОБНЕЕ ▾</span><span class="lang-kk">ТОЛЫҒЫРАҚ ▾</span></span><span class="state-less" style="display:none"><span class="lang-ru">СВЕРНУТЬ ▴</span><span class="lang-kk">ЖАБУ ▴</span></span></button>
+            <div class="desc-content"><p class="lang-ru">${p.desc}</p><p class="lang-kk">${p.desc_kk}</p></div>
+            <a href="https://wa.me/77781754241?text=${encodeURIComponent('Ассалямуалейкум! Я хочу заказать духи (миски): ' + p.name)}" class="wa-btn"><span class="lang-ru">ЗАКАЗАТЬ В WHATSAPP</span><span class="lang-kk">WHATSAPP АРҚЫЛЫ ТАПСЫРЫС БЕРУ</span></a>
         </div>`;
 
     list.appendChild(card);
     
     const btn = card.querySelector('.desc-btn');
     const content = card.querySelector('.desc-content');
+    const stateMore = btn.querySelector('.state-more');
+    const stateLess = btn.querySelector('.state-less');
     btn.addEventListener('click', () => {
         const open = content.style.display === 'block';
         content.style.display = open ? 'none' : 'block';
-        btn.textContent = open ? 'ПОДРОБНЕЕ ▾' : 'СВЕРНУТЬ ▴';
+        stateMore.style.display = open ? 'block' : 'none';
+        stateLess.style.display = open ? 'none' : 'block';
     });
 });
 
 const viewer = document.getElementById('story-viewer');
 const storyImg = document.getElementById('story-img');
+
+window.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('preferredLang') === 'kz') {
+        document.getElementById('mainBody').classList.add('kz-mode');
+    }
+});
 
 function openStory(src) {
     storyImg.src = src;
