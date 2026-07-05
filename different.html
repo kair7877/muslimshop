@@ -12,6 +12,11 @@
             --dark-2: #0d0b08; --cream: #f0e8d5; --glass: rgba(8,6,3,0.92);
         }
 
+        /* ══ ЯЗЫК RU/KZ ══ */
+        .lang-kk { display: none; }
+        body.kz-mode .lang-ru { display: none; }
+        body.kz-mode .lang-kk { display: block; }
+
         /* ТЕХНИЧЕСКИЙ ФИКС СКРОЛЛА */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body { background: var(--dark); color: var(--cream); font-family: 'Cormorant Garamond', serif; overflow-x: hidden; width: 100%; -webkit-overflow-scrolling: touch; }
@@ -101,43 +106,53 @@
         .story-slide img { width: 100%; height: 100%; object-fit: contain; }
     </style>
 </head>
-<body>
+<body id="mainBody">
 
 <header>
     <a href="index.html" class="logo-small">MUSLIM SHOP</a>
-    <a href="index.html" class="back-btn">← НАЗАД</a>
+    <a href="index.html" class="back-btn"><span class="lang-ru">← НАЗАД</span><span class="lang-kk">← АРТҚА</span></a>
 </header>
 
-<section class="hero"><h1>Разные товары</h1></section>
+<section class="hero"><h1><span class="lang-ru">Разные товары</span><span class="lang-kk">Түрлі тауарлар</span></h1></section>
 
 <section class="section" id="product-list"></section>
 
 <nav class="nav-dock">
-    <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span><span class="nav-label">Дом</span></a>
-    <a href="hits.html" class="nav-link"><span class="nav-icon">✨</span><span class="nav-label">Хиты</span></a>
-    <a href="tel:+77781754241" class="nav-link"><span class="nav-icon">📞</span><span class="nav-label">Связь</span></a>
-    <a href="https://wa.me/77781754241" class="nav-link"><span class="nav-icon">💬</span><span class="nav-label">Заказ</span></a>
+    <a href="index.html" class="nav-link"><span class="nav-icon">🏠</span><span class="nav-label"><span class="lang-ru">Дом</span><span class="lang-kk">Үй</span></span></a>
+    <a href="hits.html" class="nav-link"><span class="nav-icon">✨</span><span class="nav-label"><span class="lang-ru">Хиты</span><span class="lang-kk">Хиттер</span></span></a>
+    <a href="tel:+77781754241" class="nav-link"><span class="nav-icon">📞</span><span class="nav-label"><span class="lang-ru">Связь</span><span class="lang-kk">Байланыс</span></span></a>
+    <a href="https://wa.me/77781754241" class="nav-link"><span class="nav-icon">💬</span><span class="nav-label"><span class="lang-ru">Заказ</span><span class="lang-kk">Тапсырыс</span></span></a>
 </nav>
 
 <div id="story-viewer"><div class="story-progress" id="story-progress"></div><div class="close-story" onclick="closeStory()">×</div><div class="story-track" id="story-track"></div></div>
 
 <script>
+window.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('preferredLang') === 'kz') {
+        document.getElementById('mainBody').classList.add('kz-mode');
+    }
+});
+
 const products = [
     { 
-        name: "Eco Dry Спрей", price: "4 000 ₸", prefix: "ecodry", 
-        desc: "Натуральный антиперспирант длительного действия. Одно нанесение блокирует потоотделение на срок до 7 дней. <br>• Не оставляет пятен на одежде; <br>• Состав на основе ромашки, хвоща и чистотела; <br>• Безопасен и эффективен даже при сильных нагрузках." 
+        name: "Eco Dry Спрей", name_kk: "Eco Dry Спрейі", price: "4 000 ₸", prefix: "ecodry", 
+        desc: "Натуральный антиперспирант длительного действия. Одно нанесение блокирует потоотделение на срок до 7 дней. <br>• Не оставляет пятен на одежде; <br>• Состав на основе ромашки, хвоща и чистотела; <br>• Безопасен и эффективен даже при сильных нагрузках.",
+        desc_kk: "Ұзақ әсер ететін табиғи антиперспирант. Бір рет жағу терлеуді 7 күнге дейін бұғаттайды. <br>• Киімде дақ қалдырмайды; <br>• Түймедақ, қырықбуын және сарғалдақ негізіндегі құрам; <br>• Ауыр жүктемеде де қауіпсіз әрі тиімді."
     },
     { 
-        name: "Aller Stop Спрей", price: "5 000 ₸", prefix: "allerstop", 
-        desc: "Натуральный назальный спрей для защиты от аллергенов. <br>• Создает механический барьер против пыльцы, пыли и шерсти; <br>• Действует мгновенно; <br>• Безопасен для детей и взрослых, не содержит гормонов." 
+        name: "Aller Stop Спрей", name_kk: "Aller Stop Спрейі", price: "5 000 ₸", prefix: "allerstop", 
+        desc: "Натуральный назальный спрей для защиты от аллергенов. <br>• Создает механический барьер против пыльцы, пыли и шерсти; <br>• Действует мгновенно; <br>• Безопасен для детей и взрослых, не содержит гормонов.",
+        desc_kk: "Аллергендерден қорғауға арналған табиғи мұрын спрейі. <br>• Тозаң, шаң және жүнге қарсы механикалық тосқауыл жасайды; <br>• Лезде әсер етеді; <br>• Балалар мен ересектерге қауіпсіз, гормон құрамында жоқ."
     },
     { 
-        name: "Эмиз Виноградный", price: "16 000 ₸", prefix: "emiz", 
-        desc: "Элитный концентрированный напиток из лучших сортов винограда. <br>• Мощный источник антиоксидантов; <br>• Укрепляет иммунитет и повышает уровень гемоглобина; <br>• Дарит заряд бодрости и восстанавливает силы." 
+        name: "Эмиз Виноградный", name_kk: "Эмиз Жүзімді", price: "16 000 ₸", prefix: "emiz", 
+        desc: "Элитный концентрированный напиток из лучших сортов винограда. <br>• Мощный источник антиоксидантов; <br>• Укрепляет иммунитет и повышает уровень гемоглобина; <br>• Дарит заряд бодрости и восстанавливает силы.",
+        desc_kk: "Ең таңдаулы жүзім сорттарынан жасалған элиталық концентрацияланған сусын. <br>• Антиоксиданттардың қуатты көзі; <br>• Иммунитетті нығайтады және гемоглобин деңгейін көтереді; <br>• Сергектік сыйлап, күш-қуатты қалпына келтіреді."
     },
     { 
-        name: "Саумал (Сухое молоко)", price: "6 000 ₸", prefix: "saumal", 
-        desc: "100% натуральное сухое кобылье молоко премиум-качества. <br>• Содержит витамины A, B, C, E и важные минералы; <br>• Улучшает пищеварение и укрепляет иммунную систему; <br>• Традиционный продукт для здоровья всей семьи." 
+        name: "Саумал (Сухое молоко)", name_kk: "Саумал (Құрғақ сүт)", price: "6 000 ₸", prefix: "saumal", 
+        desc: "100% натуральное сухое кобылье молоко премиум-качества. <br>• Содержит витамины A, B, C, E и важные минералы; <br>• Улучшает пищеварение и укрепляет иммунную систему; <br>• Традиционный продукт для здоровья всей семьи.",
+        desc_kk: "100% табиғи, премиум сапалы құрғақ бие сүті. <br>• A, B, C, E дәрумендерін және маңызды минералдарды құрамында сақтайды; <br>• Ас қорытуды жақсартады және иммундық жүйені нығайтады; <br>• Бүкіл отбасының денсаулығына арналған дәстүрлі өнім."
     }
 ];
 
@@ -153,9 +168,16 @@ products.forEach((p) => {
         </div></div>
         <div class="dots">${images.map((_, i) => `<div class="dot${i===0?' active':''}"></div>`).join('')}</div>
         <div class="info">
-            <h3>${p.name}</h3><div class="price">${p.price}</div>
-            <button class="desc-btn">ПОДРОБНЕЕ ▾</button>
-            <div class="desc-content"><p>${p.desc}</p></div>
+            <h3><span class="lang-ru">${p.name}</span><span class="lang-kk">${p.name_kk}</span></h3><div class="price">${p.price}</div>
+            <button class="desc-btn">
+                <span class="state-more">
+                    <span class="lang-ru">ПОДРОБНЕЕ ▾</span><span class="lang-kk">ТОЛЫҒЫРАҚ ▾</span>
+                </span>
+                <span class="state-less" style="display:none">
+                    <span class="lang-ru">СВЕРНУТЬ ▴</span><span class="lang-kk">ЖАБУ ▴</span>
+                </span>
+            </button>
+            <div class="desc-content"><p class="lang-ru">${p.desc}</p><p class="lang-kk">${p.desc_kk}</p></div>
             <a href="https://wa.me/77781754241?text=${encodeURIComponent('Ассалямуалейкум! Я хочу заказать: ' + p.name)}" class="wa-btn">ЗАКАЗАТЬ</a>
         </div>`;
 
@@ -168,10 +190,13 @@ products.forEach((p) => {
     }, { passive: true });
     const btn = card.querySelector('.desc-btn');
     const content = card.querySelector('.desc-content');
+    const stateMore = card.querySelector('.state-more');
+    const stateLess = card.querySelector('.state-less');
     btn.addEventListener('click', () => {
         const open = content.style.display === 'block';
         content.style.display = open ? 'none' : 'block';
-        btn.textContent = open ? 'ПОДРОБНЕЕ ▾' : 'СВЕРНУТЬ ▴';
+        stateMore.style.display = open ? 'inline' : 'none';
+        stateLess.style.display = open ? 'none' : 'inline';
     });
 });
 
