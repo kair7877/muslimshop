@@ -7,10 +7,10 @@
 
     <!-- Open Graph / WhatsApp / Telegram preview -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kair7877.github.io/muslimshop/">
+    <meta property="og:url" content="https://kair7877.github.io/muslim-shop/">
     <meta property="og:title" content="Muslim Shop | Grand Luxury">
     <meta property="og:description" content="Эксклюзивные товары для здоровья и веры. Жейнамазы, парфюм, витамины, травы и многое другое.">
-    <meta property="og:image" content="https://kair7877.github.io/muslimshop/og-preview.png">
+    <meta property="og:image" content="https://kair7877.github.io/muslim-shop/og-preview.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
@@ -18,18 +18,20 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Muslim Shop | Grand Luxury">
     <meta name="twitter:description" content="Эксклюзивные товары для здоровья и веры.">
-    <meta name="twitter:image" content="https://kair7877.github.io/muslimshop/og-preview.png">
+    <meta name="twitter:image" content="https://kair7877.github.io/muslim-shop/og-preview.png">
 
     <link rel="icon" href="logo.png" type="image/png">
     <link rel="apple-touch-icon" href="logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #c9a84c;
             --gold-light: #e8c96a;
+            --gold-deep: #8a6a1e;
             --dark: #050403;
             --dark-2: #0d0b08;
+            --dark-3: #16120a;
             --cream: #f0e8d5;
             --glass: rgba(8,6,3,0.88);
         }
@@ -37,12 +39,25 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         html { background: var(--dark); scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
-        body { color: var(--cream); font-family: 'Cormorant Garamond', serif; overflow-x: hidden; padding-bottom: 130px; background: var(--dark); }
+        body { color: var(--cream); font-family: 'Cormorant Garamond', serif; overflow-x: hidden; padding-bottom: 130px; background: var(--dark); position: relative; }
 
+        /* ── Атмосферный фон: мягкое золотое свечение + зерно ── */
         body::before {
-            content: ""; position: fixed; inset: 0; z-index: -1;
-            background-image: radial-gradient(circle at 50% 30%, rgba(201,168,76,0.05) 0%, transparent 70%);
+            content: ""; position: fixed; inset: 0; z-index: -2;
+            background-image:
+                radial-gradient(circle at 18% 8%, rgba(201,168,76,0.10) 0%, transparent 42%),
+                radial-gradient(circle at 85% 18%, rgba(201,168,76,0.06) 0%, transparent 38%),
+                radial-gradient(circle at 50% 85%, rgba(201,168,76,0.05) 0%, transparent 45%);
             pointer-events: none;
+            animation: driftGlow 22s ease-in-out infinite alternate;
+        }
+        @keyframes driftGlow {
+            0% { opacity: 0.75; transform: translateY(0); }
+            100% { opacity: 1; transform: translateY(-14px); }
+        }
+        body::after {
+            content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.05; mix-blend-mode: overlay;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
         }
 
         /* ══ ЯЗЫКОВОЙ ПЕРЕКЛЮЧАТЕЛЬ ══ */
@@ -76,33 +91,66 @@
         body.kz-mode .lang-ru { display: none; }
         body.kz-mode .lang-kk { display: block; }
 
-        /* ══ HEADER ══ */
-        header { padding: 76px 24px 20px; text-align: center; position: relative; }
-        header::after { content: ""; display: block; width: 40px; height: 1px; background: var(--gold); margin: 14px auto 0; opacity: 0.4; }
-        .logo-main { font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 10px; color: var(--gold-light); font-weight: 600; }
-        .logo-sub { font-size: 0.5rem; letter-spacing: 5px; opacity: 0.35; margin-top: 6px; text-transform: uppercase; }
+        /* ══ HEADER + ПЕЧАТЬ ══ */
+        header { padding: 68px 24px 22px; text-align: center; position: relative; }
+
+        .seal { width: 74px; height: 74px; margin: 0 auto 18px; position: relative; }
+        .seal svg { width: 100%; height: 100%; animation: sealSpin 34s linear infinite; }
+        .seal-dot { position: absolute; top: 50%; left: 50%; width: 6px; height: 6px; border-radius: 50%; background: var(--gold-light); transform: translate(-50%,-50%); box-shadow: 0 0 12px 2px rgba(232,201,106,0.6); }
+        @keyframes sealSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .logo-main { font-family: 'Cinzel', serif; font-size: 1.5rem; letter-spacing: 11px; color: var(--gold-light); font-weight: 600; text-shadow: 0 0 24px rgba(201,168,76,0.25); }
+        .logo-sub { font-size: 0.52rem; letter-spacing: 5px; opacity: 0.4; margin-top: 8px; text-transform: uppercase; }
+        header::after { content: ""; display: block; width: 34px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 18px auto 0; opacity: 0.5; }
+
+        /* ══ ЗОЛОТАЯ ЛЕНТА (marquee) ══ */
+        .ticker-wrap { overflow: hidden; border-top: 1px solid rgba(201,168,76,0.14); border-bottom: 1px solid rgba(201,168,76,0.14); background: linear-gradient(90deg, transparent, rgba(201,168,76,0.05), transparent); padding: 9px 0; margin-top: 4px; }
+        .ticker-track { display: flex; width: max-content; animation: tickerScroll 26s linear infinite; }
+        .ticker-track span { font-family: 'Cinzel', serif; font-size: 0.56rem; letter-spacing: 3.5px; color: rgba(201,168,76,0.65); white-space: nowrap; padding: 0 22px; text-transform: uppercase; }
+        .ticker-track span::after { content: "✦"; margin-left: 22px; color: rgba(201,168,76,0.35); }
+        @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
         /* ══ STORIES ══ */
-        .stories-bar { display: flex; gap: 18px; padding: 16px 20px 24px; overflow-x: auto; scrollbar-width: none; touch-action: pan-x; overscroll-behavior-x: contain; }
+        .stories-bar { display: flex; gap: 18px; padding: 22px 20px 26px; overflow-x: auto; scrollbar-width: none; touch-action: pan-x; overscroll-behavior-x: contain; }
         .stories-bar::-webkit-scrollbar { display: none; }
-        .story-node { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; text-decoration: none; }
-        .story-ring { width: 66px; height: 66px; border-radius: 50%; background: conic-gradient(var(--gold), #3d2f0e, var(--gold-light), #3d2f0e, var(--gold)); padding: 2px; box-shadow: 0 0 18px rgba(201,168,76,0.2); }
+        .story-node { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; text-decoration: none; transition: transform 0.25s ease; }
+        .story-node:active { transform: scale(0.93); }
+        .story-ring { width: 66px; height: 66px; border-radius: 50%; background: conic-gradient(var(--gold), #3d2f0e, var(--gold-light), #3d2f0e, var(--gold)); padding: 2px; box-shadow: 0 0 18px rgba(201,168,76,0.2); transition: box-shadow 0.3s ease; }
+        .story-node:active .story-ring { box-shadow: 0 0 26px rgba(201,168,76,0.45); }
         .story-inner { width: 100%; height: 100%; border-radius: 50%; background: var(--dark-2); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-        .story-node span { font-size: 0.5rem; letter-spacing: 1.5px; color: rgba(201,168,76,0.7); text-transform: uppercase; text-align: center; }
+        .story-node span { font-size: 0.5rem; letter-spacing: 1.5px; color: rgba(201,168,76,0.7); text-transform: uppercase; text-align: center; font-family: 'Cinzel', serif; }
 
         /* ══ GRID ══ */
-        .magazine { padding: 0 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .magazine { padding: 6px 14px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-        .hero-banner { grid-column: span 2; height: 240px; background: linear-gradient(135deg, #1a1200 0%, #0a0800 100%); border: 1px solid rgba(201,168,76,0.3); border-radius: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; position: relative; overflow: hidden; }
-        .hero-badge { background: var(--gold); color: #000; font-family: 'Cinzel', serif; font-size: 0.5rem; font-weight: 900; letter-spacing: 4px; padding: 4px 14px; border-radius: 50px; margin-bottom: 12px; }
-        .hero-title { font-family: 'Cinzel', serif; font-size: 2rem; color: var(--cream); letter-spacing: 3px; text-align: center; }
-        .hero-sub { font-size: 0.6rem; letter-spacing: 4px; color: var(--gold); opacity: 0.8; margin-top: 10px; }
+        .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        .luxury-card { background: var(--dark-2); border: 1px solid rgba(201,168,76,0.12); border-radius: 24px; padding: 32px 12px 22px; text-decoration: none; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
-        .luxury-card:active { background: #1a1508; border-color: rgba(201,168,76,0.4); }
-        .card-icon { font-size: 2.2rem; display: block; }
+        .hero-banner { grid-column: span 2; height: 250px; background: linear-gradient(135deg, #1a1200 0%, #0a0800 100%); border: 1px solid rgba(201,168,76,0.3); border-radius: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; position: relative; overflow: hidden; }
+        .hero-banner::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 30% 20%, rgba(201,168,76,0.12), transparent 55%); }
+        .hero-banner::after { content: ""; position: absolute; top: 0; left: -60%; width: 45%; height: 100%; background: linear-gradient(115deg, transparent, rgba(232,201,106,0.10), transparent); animation: sheen 5.5s ease-in-out infinite; }
+        @keyframes sheen { 0% { left: -60%; } 45%, 100% { left: 130%; } }
+        .hero-badge { position: relative; background: var(--gold); color: #000; font-family: 'Cinzel', serif; font-size: 0.5rem; font-weight: 900; letter-spacing: 4px; padding: 4px 14px; border-radius: 50px; margin-bottom: 12px; }
+        .hero-title { position: relative; font-family: 'Cinzel', serif; font-size: 2.1rem; color: var(--cream); letter-spacing: 3px; text-align: center; }
+        .hero-sub { position: relative; font-size: 0.6rem; letter-spacing: 4px; color: var(--gold); opacity: 0.85; margin-top: 12px; display: flex; align-items: center; gap: 8px; }
+        .hero-sub::after { content: "→"; transition: transform 0.3s ease; }
+        .hero-banner:active .hero-sub::after { transform: translateX(4px); }
+
+        .luxury-card { position: relative; background: var(--dark-2); border: 1px solid rgba(201,168,76,0.12); border-radius: 22px; padding: 34px 12px 24px; text-decoration: none; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; transition: border-color 0.3s ease, background 0.3s ease, transform 0.2s ease; }
+        .luxury-card::before, .luxury-card::after { content: ""; position: absolute; width: 14px; height: 14px; opacity: 0; transition: opacity 0.3s ease; }
+        .luxury-card::before { top: 9px; left: 9px; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+        .luxury-card::after { bottom: 9px; right: 9px; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+        .luxury-card:active { background: #1a1508; border-color: rgba(201,168,76,0.4); transform: scale(0.97); }
+        .luxury-card:active::before, .luxury-card:active::after { opacity: 1; }
+        .card-icon { font-size: 2.1rem; display: block; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)); }
         .card-label { font-family: 'Cinzel', serif; font-size: 0.62rem; color: var(--cream); letter-spacing: 1.5px; text-transform: uppercase; line-height: 1.4; }
         .card-wide { grid-column: span 2; flex-direction: row; padding: 22px 28px; gap: 20px; justify-content: center; }
+
+        /* ══ FOOTER ══ */
+        .site-footer { text-align: center; padding: 56px 20px 30px; }
+        .footer-orn { width: 120px; margin: 0 auto 18px; opacity: 0.35; }
+        .footer-tag { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 6px; color: rgba(201,168,76,0.4); text-transform: uppercase; }
+        .footer-loc { margin-top: 8px; font-size: 0.85rem; color: rgba(240,232,213,0.3); letter-spacing: 1px; }
 
         /* ══ NAV DOCK ══ */
         .nav-dock { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); width: calc(100% - 40px); max-width: 380px; height: 70px; background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); border-radius: 36px; display: flex; justify-content: space-around; align-items: center; z-index: 8000; box-shadow: 0 20px 60px rgba(0,0,0,0.9); }
@@ -110,6 +158,11 @@
         .nav-icon { font-size: 1.4rem; display: block; }
         .nav-label { font-size: 0.45rem; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; font-weight: bold; font-family: 'Cinzel', serif; }
         .nav-link.active .nav-icon { filter: drop-shadow(0 0 8px var(--gold)); }
+
+        @media (prefers-reduced-motion: reduce) {
+            body::before, .seal svg, .ticker-track, .hero-banner::after { animation: none !important; }
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
     </style>
 </head>
 <body id="mainBody">
@@ -121,12 +174,40 @@
 
 <!-- HEADER -->
 <header>
+    <div class="seal">
+        <svg viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="47" stroke="#c9a84c" stroke-width="0.6" opacity="0.55"/>
+            <circle cx="50" cy="50" r="38" stroke="#c9a84c" stroke-width="0.6" opacity="0.35"/>
+            <g opacity="0.8">
+                <path d="M50 8 L54 26 L50 34 L46 26 Z" fill="#c9a84c"/>
+                <path d="M92 50 L74 54 L66 50 L74 46 Z" fill="#c9a84c"/>
+                <path d="M50 92 L46 74 L50 66 L54 74 Z" fill="#c9a84c"/>
+                <path d="M8 50 L26 46 L34 50 L26 54 Z" fill="#c9a84c"/>
+            </g>
+            <circle cx="50" cy="50" r="6" fill="none" stroke="#e8c96a" stroke-width="0.8"/>
+        </svg>
+        <div class="seal-dot"></div>
+    </div>
     <div class="logo-main">MUSLIM SHOP</div>
     <div class="logo-sub">
         <span class="lang-ru">Atyrau · Boutique №24</span>
         <span class="lang-kk">Атырау · №24 Бутик</span>
     </div>
 </header>
+
+<div class="ticker-wrap">
+    <div class="ticker-track">
+        <span class="lang-ru">Рынок Дина · Бутик №24</span><span class="lang-kk">Дина Базары · №24 Бутик</span>
+        <span class="lang-ru">Premium Quality</span><span class="lang-kk">Premium Quality</span>
+        <span class="lang-ru">Товары для здоровья и веры</span><span class="lang-kk">Денсаулық пен иман үшін тауарлар</span>
+        <span class="lang-ru">Atyrau</span><span class="lang-kk">Атырау</span>
+        <!-- дублируем для бесшовной прокрутки -->
+        <span class="lang-ru">Рынок Дина · Бутик №24</span><span class="lang-kk">Дина Базары · №24 Бутик</span>
+        <span class="lang-ru">Premium Quality</span><span class="lang-kk">Premium Quality</span>
+        <span class="lang-ru">Товары для здоровья и веры</span><span class="lang-kk">Денсаулық пен иман үшін тауарлар</span>
+        <span class="lang-ru">Atyrau</span><span class="lang-kk">Атырау</span>
+    </div>
+</div>
 
 <!-- STORIES -->
 <div class="stories-bar">
@@ -140,7 +221,7 @@
 
 <!-- GRID -->
 <main class="magazine">
-    <a href="hits.html" class="hero-banner">
+    <a href="hits.html" class="hero-banner reveal">
         <div class="hero-badge"><span class="lang-ru">BESTSELLERS</span><span class="lang-kk">ХИТТЕР</span></div>
         <div class="hero-title">
             <span class="lang-ru">ТОП-5 ХИТЫ</span>
@@ -152,63 +233,63 @@
         </div>
     </a>
 
-    <a href="manshealth.html" class="luxury-card">
+    <a href="manshealth.html" class="luxury-card reveal">
         <span class="card-icon">💪</span>
         <span class="card-label">
             <span class="lang-ru">Мужское здоровье</span>
             <span class="lang-kk">Ерлер денсаулығы</span>
         </span>
     </a>
-    <a href="jeynamaz.html" class="luxury-card">
+    <a href="jeynamaz.html" class="luxury-card reveal">
         <span class="card-icon">🕌</span>
         <span class="card-label">
             <span class="lang-ru">Жейнамазы</span>
             <span class="lang-kk">Жайнамаздар</span>
         </span>
     </a>
-    <a href="weightloss.html" class="luxury-card">
+    <a href="weightloss.html" class="luxury-card reveal">
         <span class="card-icon">🔥</span>
         <span class="card-label">
             <span class="lang-ru">Похудение</span>
             <span class="lang-kk">Арықтау үшін</span>
         </span>
     </a>
-    <a href="weightgain.html" class="luxury-card">
+    <a href="weightgain.html" class="luxury-card reveal">
         <span class="card-icon">🍯</span>
         <span class="card-label">
             <span class="lang-ru">Набор веса</span>
             <span class="lang-kk">Салмақ қосу</span>
         </span>
     </a>
-    <a href="collagen.html" class="luxury-card">
+    <a href="collagen.html" class="luxury-card reveal">
         <span class="card-icon">💅</span>
         <span class="card-label">
             <span class="lang-ru">Коллаген</span>
             <span class="lang-kk">Коллаген</span>
         </span>
     </a>
-    <a href="nigella.html" class="luxury-card">
+    <a href="nigella.html" class="luxury-card reveal">
         <span class="card-icon">🛢️</span>
         <span class="card-label">
             <span class="lang-ru">Масло чёрного тмина</span>
             <span class="lang-kk">Қара зере майы</span>
         </span>
     </a>
-    <a href="nutraxin.html" class="luxury-card">
+    <a href="nutraxin.html" class="luxury-card reveal">
         <span class="card-icon">💊</span>
         <span class="card-label">
             <span class="lang-ru">Nutraxin Витамины</span>
             <span class="lang-kk">Nutraxin Витаминдері</span>
         </span>
     </a>
-    <a href="dagestan.html" class="luxury-card">
+    <a href="dagestan.html" class="luxury-card reveal">
         <span class="card-icon">🌿</span>
         <span class="card-label">
             <span class="lang-ru">Дагестанские травы</span>
             <span class="lang-kk">Дағыстан шөптері</span>
         </span>
     </a>
-    <a href="different.html" class="luxury-card">
+    <a href="different.html" class="luxury-card reveal card-wide">
         <span class="card-icon">🛍️</span>
         <span class="card-label">
             <span class="lang-ru">Разные товары</span>
@@ -217,8 +298,15 @@
     </a>
 </main>
 
-<footer style="text-align: center; padding: 50px 20px; font-size: 0.5rem; letter-spacing: 6px; color: rgba(201,168,76,0.2);">
-    EXCLUSIVE ACCESS ONLY
+<footer class="site-footer">
+    <svg class="footer-orn" viewBox="0 0 200 20" fill="none">
+        <line x1="0" y1="10" x2="80" y2="10" stroke="#c9a84c" stroke-width="0.6"/>
+        <line x1="120" y1="10" x2="200" y2="10" stroke="#c9a84c" stroke-width="0.6"/>
+        <path d="M90 10 L100 4 L110 10 L100 16 Z" stroke="#c9a84c" stroke-width="0.6" fill="none"/>
+        <circle cx="100" cy="10" r="1.6" fill="#c9a84c"/>
+    </svg>
+    <div class="footer-tag">EXCLUSIVE ACCESS ONLY</div>
+    <div class="footer-loc"><span class="lang-ru">Атырау, Рынок Дина, Бутик №24</span><span class="lang-kk">Атырау, Дина Базары, №24 Бутик</span></div>
 </footer>
 
 <!-- NAV DOCK -->
@@ -268,6 +356,22 @@
             setLang('kz');
         }
     };
+
+    // ── SCROLL REVEAL ──
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(el => io.observe(el));
+    } else {
+        revealEls.forEach(el => el.classList.add('visible'));
+    }
 </script>
 
 </body>
