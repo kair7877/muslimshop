@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HTKVMWGT1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6HTKVMWGT1');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Muslim Shop | Grand Luxury</title>
@@ -85,10 +93,10 @@
         header::after { content: ""; display: block; width: 34px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 18px auto 0; opacity: 0.5; }
 
         /* ══ ЗОЛОТАЯ ЛЕНТА (лёгкий marquee — только transform, дёшево для GPU) ══ */
-        .ticker-wrap { overflow: hidden; border-top: 1px solid rgba(201,168,76,0.14); border-bottom: 1px solid rgba(201,168,76,0.14); padding: 9px 0; margin-top: 4px; }
-        .ticker-track { display: flex; width: max-content; animation: tickerScroll 30s linear infinite; }
-        .ticker-track span { font-family: 'Cinzel', serif; font-size: 0.56rem; letter-spacing: 3.5px; color: rgba(201,168,76,0.6); white-space: nowrap; padding: 0 22px; text-transform: uppercase; }
-        .ticker-track span::after { content: "✦"; margin-left: 22px; color: rgba(201,168,76,0.3); }
+        .ticker-wrap { overflow: hidden; border-top: 1px solid rgba(201,168,76,0.14); border-bottom: 1px solid rgba(201,168,76,0.14); padding: 13px 0; margin-top: 4px; }
+        .ticker-track { display: flex; width: max-content; animation: tickerScroll 16s linear infinite; }
+        .ticker-track span { font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 2.5px; color: var(--gold-light); white-space: nowrap; padding: 0 20px; text-transform: uppercase; }
+        .ticker-track span::after { content: "✦"; margin-left: 20px; color: rgba(201,168,76,0.5); }
         @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
         /* ══ GRID (единственная навигация по категориям — без дублей) ══ */
