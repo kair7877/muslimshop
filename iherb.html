@@ -8,8 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #c9a84c; --gold-light: #e8c96a; --dark: #050504;
-            --dark-2: #0e0d0a; --cream: #f0e8d5; --glass: rgba(10, 8, 5, 0.92);
+            --gold: #c9a84c; --gold-light: #e8c96a; --dark: #030201;
+            --dark-2: #0a0705; --cream: #f0e8d5; --glass: rgba(3,2,1,0.9);
         }
 
         /* ══ ЯЗЫК RU/KZ ══ */
@@ -31,7 +31,7 @@
 
         header {
             padding: 20px; display: flex; justify-content: space-between; align-items: center;
-            background: rgba(5,5,5,0.95); position: sticky; top: 0; z-index: 100;
+            background: rgba(3,2,1,0.95); backdrop-filter: blur(14px); position: sticky; top: 0; z-index: 100;
             border-bottom: 1px solid rgba(201,168,76,0.12); backdrop-filter: blur(10px);
         }
         .logo-small { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold-light); letter-spacing: 3px; text-decoration: none; }
@@ -46,12 +46,12 @@
         .product-card {
             background: var(--dark-2); border: 1px solid rgba(201,168,76,0.2);
             border-radius: 30px; overflow: hidden; margin-bottom: 3.5rem;
-            display: flex; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column; box-shadow: 0 18px 50px rgba(0,0,0,0.85);
             touch-action: pan-y;
         }
 
         .carousel-box { 
-            position: relative; width: 100%; height: 500px; background: #000; overflow: hidden;
+            position: relative; width: 100%; height: 500px; background: radial-gradient(circle at 50% 40%, #14100a 0%, #000 72%); overflow: hidden;
             touch-action: pan-y;
         }
         
@@ -86,7 +86,7 @@
 
         .wa-btn {
             display: block; background: linear-gradient(135deg, var(--gold), #8a6a1e); color: #000; 
-            padding: 18px; border-radius: 15px; text-decoration: none; text-align: center; 
+            padding: 18px; border-radius: 15px; text-decoration: none; text-align: center; box-shadow: 0 10px 28px rgba(201,168,76,0.22); 
             font-weight: 900; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px;
         }
 
