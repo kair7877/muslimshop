@@ -36,10 +36,10 @@
             --gold: #c9a84c;
             --gold-light: #e8c96a;
             --gold-deep: #8a6a1e;
-            --dark: #050403;
-            --dark-2: #0d0b08;
+            --dark: #030201;
+            --dark-2: #0a0705;
             --cream: #f0e8d5;
-            --glass: rgba(8,6,3,0.92);
+            --glass: rgba(3,2,1,0.9);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -106,13 +106,13 @@
         .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.5s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        .hero-banner { grid-column: span 2; height: 220px; background: linear-gradient(135deg, #1a1200 0%, #0a0800 100%); border: 1px solid rgba(201,168,76,0.3); border-radius: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; position: relative; }
+        .hero-banner { grid-column: span 2; height: 220px; background: linear-gradient(135deg, #171000 0%, #050301 100%); box-shadow: 0 16px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.3); border-radius: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; position: relative; }
         .hero-badge { background: var(--gold); color: #000; font-family: 'Cinzel', serif; font-size: 0.5rem; font-weight: 900; letter-spacing: 4px; padding: 4px 14px; border-radius: 50px; margin-bottom: 12px; }
         .hero-title { font-family: 'Cinzel', serif; font-size: 2rem; color: var(--cream); letter-spacing: 3px; text-align: center; }
         .hero-sub { font-size: 0.6rem; letter-spacing: 4px; color: var(--gold); opacity: 0.85; margin-top: 12px; }
         .hero-sub::after { content: " →"; }
 
-        .luxury-card { position: relative; background: var(--dark-2); border: 1px solid rgba(201,168,76,0.12); border-radius: 22px; padding: 34px 12px 24px; text-decoration: none; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; transition: border-color 0.2s ease, background 0.2s ease; }
+        .luxury-card { position: relative; background: var(--dark-2); border: 1px solid rgba(201,168,76,0.12); border-radius: 22px; padding: 34px 12px 24px; text-decoration: none; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease; }
         .luxury-card::before, .luxury-card::after { content: ""; position: absolute; width: 12px; height: 12px; opacity: 0; transition: opacity 0.2s ease; }
         .luxury-card::before { top: 9px; left: 9px; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
         .luxury-card::after { bottom: 9px; right: 9px; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
